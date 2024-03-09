@@ -1,3 +1,7 @@
+
+#include<iostream>
+using namespace std;
+//Class 1
 class ObjetoParque{
 private:
 int area_de_joc_id;
