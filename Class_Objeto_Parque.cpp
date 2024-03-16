@@ -49,10 +49,7 @@ class ObjetoParque
 
 //---------Altres--------------
 
-
-
 };
-
 
 int main()
 {
