@@ -4,6 +4,11 @@
 
 using namespace std;
 
+//Insertar Classes:
+//Class Lugar
+//Class Objeto Parque
+//Class Parque Barna
+
 int main()
 {
   
