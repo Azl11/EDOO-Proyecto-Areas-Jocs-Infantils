@@ -15,7 +15,15 @@ class ObjetoParque
 
 //-------CONSTRUCTORS--------
 
-    ObjetoParque(){}
+    ObjetoParque()
+    {
+    AJ_Id = 0;
+    AJ_M2 = 0;
+    AJ_Edat_Id = 0;
+    AJ_Edat = "-";
+    Codi = "-";
+    Tipus = "-";
+    }
 
     ObjetoParque(int C_AJ_Id , int C_AJ_M2 , int C_AJ_Edat_Id, string C_AJ_Edat , string C_Codi , string C_Tipus)
     {
@@ -25,6 +33,18 @@ class ObjetoParque
     AJ_Edat = C_AJ_Edat;
     Codi = C_Codi;
     Tipus = C_Tipus;
+    }
+
+//----Constructor Còpia------
+
+    ObjetoParque(const ObjetoParque & Obj)
+    {
+    AJ_Id = Obj.AJ_Id;
+    AJ_M2 = Obj.AJ_M2;
+    AJ_Edat_Id = Obj.AJ_Edat_Id;
+    AJ_Edat = Obj.AJ_Edat;
+    Codi = Obj.Codi;
+    Tipus = Obj.Tipus;
     }
 
 //---------MÉTODES-----------
@@ -49,11 +69,29 @@ class ObjetoParque
 
 //---------Altres--------------
 
+friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
+{
+    os<<"-------------------------------"<<endl;
+    os<<"Area de Jocs ID: "<< Obj.AJ_Id<<endl;
+    os<<"Area de Jocs M2: "<< Obj.AJ_M2<<endl;
+    os<<"Area de Jocs Edat ID: "<< Obj.AJ_Edat_Id<<endl;
+    os<<"Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
+    os<<"Codi: "<< Obj.Codi<< endl;
+    os<<"Tipus: "<< Obj.Tipus<< endl;
+    os<<"-------------------------------"<<endl;
+    os<<endl;
+
+    return os;
+}
+
 };
+
 
 int main()
 {
     ObjetoParque P;
-    P.setAJ_Id(4444);
-    cout << P.getAJ_Id();
+    P.setAJ_Edat("hola");
+    cout<< P;
+    P.setAJ_Edat("34");
+    cout<< P;
 }
