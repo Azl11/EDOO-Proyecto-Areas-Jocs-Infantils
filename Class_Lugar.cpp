@@ -91,5 +91,23 @@ os<<"---------------------------"<<endl;
   return os;
 }
 
+friend istream operator>>(istream & is, Lugar & Loc){
+
+  is>>Loc.Codi_V;
+ is>>Loc.Codi_D;
+  is>>Loc.Codi_B;
+  is>>Loc.Nom_V;
+  is>>Loc.Nom_B;
+  is>>Loc.Nom_D;
+  is>>Loc.Tipus_V;
+  is>>Loc.Num_P;
+  is>>Loc.Lat;
+  is>>Loc.Long;
+  is>>Loc.Codi;
+ 
+  return is;
+}
+  
+
 };
 
