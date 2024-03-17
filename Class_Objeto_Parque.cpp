@@ -84,6 +84,19 @@ friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
     return os;
 }
 
+friend istream & operator>>(istream & is, ObjetoParque & Obj){
+
+    
+    is>> Obj.AJ_Id;
+    is>> Obj.AJ_M2;
+    is>> Obj.AJ_Edat_Id;
+    is>>Obj.AJ_Edat;
+    is>>Obj.Codi;
+    is>> Obj.Tipus;
+   
+
+    return is;
+
 };
 
 
