@@ -68,5 +68,25 @@ void SetTipus_V(char Tipus_Vs){Tipus_V=Tipus_Vs;}
 void SetLong(double LongS){Long=LongS;}
 void SetLat(double LatS){Lat=LatS;}
 
+friend ostream & operator<<(ostream & os, const Lugar & loc){
+
+os<<"---------------------------"<<endl;
+  os<<"Codi via :"<<Loc.Codi_V<<endl;
+  os<<"Codi districte :"<<Loc.Codi_D<<endl;
+  os<<"Codi barri :"<<Loc.Codi_B<<endl;
+  os<<"nom de via: "<<Loc.Nom_V<<endl;
+  os<<"nom de barri: "<<Loc.Nom_B<<endl;
+  os<<"nom de districte: "<<Loc.Nom_D<<endl;
+  os<<"tipus de via: "<<Loc.Tipus_V<<endl;
+  os<<"numero postal: "<<Loc.Num_P<<endl;
+  os<<" Laltitud: "<<Loc.Lat<<endl;
+  os<<"Longitud: "<<Loc.Long<<endl;
+  os<<"-------------------------------"<<endl;
+  os<<endl;
+  return os;
+}
+
+  
+
 };
 
