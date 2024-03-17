@@ -51,7 +51,7 @@ int GetNum_P()const {return Num_P;}
 string GetNom_V()const {return Nom_V;}
 string GetNom_D()const {return Nom_D;}
 string GetNom_B()const {return Nom_B;}                      
-char GetTipus_V()const {return Tipus_V;}
+string GetTipus_V()const {return Tipus_V;}
 double GetLong()const  {return Long;}
 double GetLat()const  {return Lat;}
 
