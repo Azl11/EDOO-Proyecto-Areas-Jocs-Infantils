@@ -1,18 +1,21 @@
 #include<iostream>
+
 using namespace std;
-//Class_2
+
 class Lugar
 {
   private:
+
   int Codi_V , Codi_D , Codi_B; //Codi Via , Codi Districte , Codi Barri
   string Nom_V , Nom_D , Nom_B; //Nom Via , Nom Districte , Nom Barri
   char Tipus_V; //Tipus Via 
   int Num_P; //Numero Postal
   double Long , Lat; //Longitud  Latitud
+
   public:
 
-Lugar(){
-}
+Lugar(){}
+
 Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, double LongC, double LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, char Tipus_VC){
 Codi_V=Codi_Vc;
  Codi_D=Codi_Dc;
@@ -25,6 +28,7 @@ Codi_V=Codi_Vc;
  Long=LongC;
  Lat=LatC;
 }
+
 Lugar(const Lugar &Loc){
   Codi_V=Loc.Codi_V;
  Codi_D=Loc.Codi_D;
@@ -39,6 +43,7 @@ Lugar(const Lugar &Loc){
 }
 
 //-----------Get-------------
+
 int GetCodi_V()const {return Codi_V;}
 int GetCodi_D()const {return Codi_D;}
 int GetCodi_B()const {return Codi_B;}
@@ -62,7 +67,6 @@ void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
 void SetTipus_V(char Tipus_Vs){Tipus_V=Tipus_Vs;}
 void SetLong(double LongS){Long=LongS;}
 void SetLat(double LatS){Lat=LatS;}
-
 
 };
 
