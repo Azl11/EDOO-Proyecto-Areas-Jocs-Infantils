@@ -6,7 +6,7 @@ class Lugar
 {
   private:
 
-  int Codi_V , Codi_D , Codi_B; //Codi Via , Codi Districte , Codi Barri
+  int Codi_V , Codi_D , Codi_B , Codi; //Codi Via , Codi Districte , Codi Barri , Codi
   string Nom_V , Nom_D , Nom_B; //Nom Via , Nom Districte , Nom Barri
   string Tipus_V; //Tipus Via 
   int Num_P; //Numero Postal
