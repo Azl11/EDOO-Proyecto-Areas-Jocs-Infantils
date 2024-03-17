@@ -49,4 +49,20 @@ string GetNom_B()const {return Nom_B;}
 char GetTipus_V()const {return Tipus_V;}
 double GetLong()const  {return Long;}
 double GetLat()const  {return Lat;}
+
+//----------Set--------------
+
+void SetCodi_V(int Codi_Vs){ Codi_V=Codi_Vs;}
+void SetCodi_D(int Codi_Ds){ Codi_D=Codi_Vs;}
+void SetCodi_B(int Codi_Bs){ Codi_B=Codi_Vs;}
+void SetNum_P(int Num_Ps){ Num_P=Num_Ps;}
+void SetNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
+void SetNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
+void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
+void SetTipus_V(char Tipus_Vs){Tipus_V=Tipus_Vs;}
+void SetLong(double LongS){Long=LongS;}
+void SetLat(double LatS){Lat=LatS;}
+
+
 };
+
