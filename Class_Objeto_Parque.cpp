@@ -96,6 +96,7 @@ friend istream & operator>>(istream & is, ObjetoParque & Obj){
    
 
     return is;
+}
 
 };
 
