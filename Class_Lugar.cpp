@@ -16,7 +16,7 @@ class Lugar
 
 Lugar(){}
 
-Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, double LongC, double LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, char Tipus_VC){
+Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, double LongC, double LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, char Tipus_VC,int CodiC){
 Codi_V=Codi_Vc;
  Codi_D=Codi_Dc;
  Codi_B=Codi_Bc;
@@ -27,6 +27,7 @@ Codi_V=Codi_Vc;
  Num_P=Num_Pc;
  Long=LongC;
  Lat=LatC;
+  Codi=CodiC;
 }
 
 Lugar(const Lugar &Loc){
@@ -40,6 +41,7 @@ Lugar(const Lugar &Loc){
  Num_P=Loc.Num_P;
  Long=Loc.Long;
  Lat=Loc.Lat;
+  Codi=Loc.Codi;
 }
 
 //-----------Get-------------
@@ -48,6 +50,7 @@ int GetCodi_V()const {return Codi_V;}
 int GetCodi_D()const {return Codi_D;}
 int GetCodi_B()const {return Codi_B;}
 int GetNum_P()const {return Num_P;}
+int GetCodi()const  {return Codi;}
 string GetNom_V()const {return Nom_V;}
 string GetNom_D()const {return Nom_D;}
 string GetNom_B()const {return Nom_B;}                      
@@ -67,6 +70,7 @@ void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
 void SetTipus_V(char Tipus_Vs){Tipus_V=Tipus_Vs;}
 void SetLong(double LongS){Long=LongS;}
 void SetLat(double LatS){Lat=LatS;}
+void SetCodi(int CodiS){Codi=CodiS;}
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
@@ -81,6 +85,7 @@ os<<"---------------------------"<<endl;
   os<<"numero postal: "<<Loc.Num_P<<endl;
   os<<" Laltitud: "<<Loc.Lat<<endl;
   os<<"Longitud: "<<Loc.Long<<endl;
+  os<<"codigo: "<<Loc.Codigp<<endl;
   os<<"-------------------------------"<<endl;
   os<<endl;
   return os;
