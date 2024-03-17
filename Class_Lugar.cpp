@@ -91,7 +91,7 @@ os<<"---------------------------"<<endl;
   return os;
 }
 
-friend istream operator>>(istream & is, Lugar & Loc){
+friend istream & operator>>(istream & is, Lugar & Loc){
 
   is>>Loc.Codi_V;
  is>>Loc.Codi_D;
