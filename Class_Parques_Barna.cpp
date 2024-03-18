@@ -8,8 +8,8 @@ class ObjetoParque
 {
     private:
 
-    int AJ_Id ; //Area de Joc Id , Area de Joc M2 , Area de Joc Edat Id
-    string AJ_Edat , AJ_Edat_Id; //Area de Joc Edat
+    int AJ_Id , AJ_Edat_Id; //Area de Joc Id , Area de Joc M2 , Area de Joc Edat Id
+    string AJ_Edat ; //Area de Joc Edat
     string Codi , Tipus; //Codi , Tipus d'objecte
     double AJ_M2;
 
@@ -17,17 +17,9 @@ class ObjetoParque
 
 //-------CONSTRUCTORS--------
 
-    ObjetoParque()
-    {
-    AJ_Id = 0;
-    AJ_M2 = 0;
-    AJ_Edat_Id = "-";
-    AJ_Edat = "-";
-    Codi = "-";
-    Tipus = "-";
-    }
+    ObjetoParque(){}
 
-    ObjetoParque(int C_AJ_Id , double C_AJ_M2 , string C_AJ_Edat_Id, string C_AJ_Edat , string C_Codi , string C_Tipus)
+    ObjetoParque(int C_AJ_Id , double C_AJ_M2 , int C_AJ_Edat_Id, string C_AJ_Edat , string C_Codi , string C_Tipus)
     {
     AJ_Id = C_AJ_Id;
     AJ_M2 = C_AJ_M2;
@@ -55,7 +47,7 @@ class ObjetoParque
 
     int getAJ_Id()const{return AJ_Id;}
     double getAJ_M2()const{return AJ_M2;}
-    string getAJ_Edat_Id()const{return AJ_Edat_Id;}
+    int getAJ_Edat_Id()const{return AJ_Edat_Id;}
     string getAJ_Edat()const{return AJ_Edat;}
     string getCodi()const{return Codi;}
     string getTipus()const{return Tipus;}
@@ -64,7 +56,7 @@ class ObjetoParque
 
     void setAJ_Id(int S_AJ_Id){AJ_Id = S_AJ_Id;}
     void setAJ_M2(double S_AJ_M2){AJ_M2 = S_AJ_M2;}
-    void setAJ_Edat_Id(string S_AJ_Edat_Id){AJ_Edat_Id = S_AJ_Edat_Id;}
+    void setAJ_Edat_Id(int S_AJ_Edat_Id){AJ_Edat_Id = S_AJ_Edat_Id;}
     void setAJ_Edat(string S_AJ_Edat){AJ_Edat = S_AJ_Edat;}
     void setCodi(string S_Codi){Codi = S_Codi;}
     void setTipus(string S_Tipus){Tipus = S_Tipus;}
@@ -199,8 +191,8 @@ public:
 
     Parques_Barna(ifstream & Data)
     {
-        int AJ_Id  ; //Area de Joc Id , Area de Joc Edat Id
-        string AJ_Edat , AJ_Edat_Id; //Area de Joc Edat
+        int AJ_Id , AJ_Edat_Id ; //Area de Joc Id , Area de Joc Edat Id
+        string AJ_Edat; //Area de Joc Edat
         string Codi , Tipus ; //Codi , Tipus d'objecte
         int Codi_V , Codi_D , Codi_B , Num_P; //Codi Via , Codi Districte , Codi Barri
         string Nom_V , Nom_D , Nom_B; //Nom Via , Nom Districte , Nom Barri
@@ -252,4 +244,3 @@ int main()
     ifstream Data("DATA.txt");
     Parques_Barna Parque1(Data);
 }
-
