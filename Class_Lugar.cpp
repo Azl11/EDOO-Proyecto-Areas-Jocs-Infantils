@@ -10,13 +10,13 @@ class Lugar
   string Nom_V , Nom_D , Nom_B,Codi; //Nom Via , Nom Districte , Nom Barri
   string Tipus_V; //Tipus Via 
   int Num_P; //Numero Postal
-  double Long , Lat; //Longitud  Latitud
+  string Long , Lat; //Longitud  Latitud
 
   public:
 
 Lugar(){}
 
-Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, double LongC, double LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, char Tipus_VC,string CodiC){
+Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC,string CodiC){
 Codi_V=Codi_Vc;
  Codi_D=Codi_Dc;
  Codi_B=Codi_Bc;
@@ -32,15 +32,15 @@ Codi_V=Codi_Vc;
 
 Lugar(const Lugar &Loc){
   Codi_V=Loc.Codi_V;
- Codi_D=Loc.Codi_D;
- Codi_B=Loc.Codi_B;
- Nom_V=Loc.Nom_V;
- Nom_D=Loc.Nom_D;
- Nom_B=Loc.Nom_B;
- Tipus_V=Loc.Tipus_V;
- Num_P=Loc.Num_P;
- Long=Loc.Long;
- Lat=Loc.Lat;
+  Codi_D=Loc.Codi_D;
+  Codi_B=Loc.Codi_B;
+  Nom_V=Loc.Nom_V;
+  Nom_D=Loc.Nom_D;
+  Nom_B=Loc.Nom_B;
+  Tipus_V=Loc.Tipus_V;
+  Num_P=Loc.Num_P;
+  Long=Loc.Long;
+  Lat=Loc.Lat;
   Codi=Loc.Codi;
 }
 
@@ -55,8 +55,8 @@ string GetNom_V()const {return Nom_V;}
 string GetNom_D()const {return Nom_D;}
 string GetNom_B()const {return Nom_B;}                      
 string GetTipus_V()const {return Tipus_V;}
-double GetLong()const  {return Long;}
-double GetLat()const  {return Lat;}
+string GetLong()const  {return Long;}
+string GetLat()const  {return Lat;}
 
 //----------Set--------------
 
@@ -67,9 +67,9 @@ void SetNum_P(int Num_Ps){ Num_P=Num_Ps;}
 void SetNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
 void SetNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
 void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
-void SetTipus_V(char Tipus_Vs){Tipus_V=Tipus_Vs;}
-void SetLong(double LongS){Long=LongS;}
-void SetLat(double LatS){Lat=LatS;}
+void SetTipus_V(string Tipus_Vs){Tipus_V=Tipus_Vs;}
+void SetLong(string LongS){Long=LongS;}
+void SetLat(string LatS){Lat=LatS;}
 void SetCodi(string CodiS){Codi=CodiS;}
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
