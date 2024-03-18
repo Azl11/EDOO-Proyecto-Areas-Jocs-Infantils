@@ -92,17 +92,17 @@ class Lugar
 {
   private:
 
-  string  Codi_V , Codi_D , Codi_B ; //Codi Via , Codi Districte , Codi Barri
+  int  Codi_V , Codi_D , Codi_B ; //Codi Via , Codi Districte , Codi Barri
   string Nom_V , Nom_D , Nom_B , Codi ; //Nom Via , Nom Districte , Nom Barri
   string Tipus_V; //Tipus Via
-  string Num_P; //Numero Postal
+  int Num_P; //Numero Postal
   string Long , Lat; //Longitud  Latitud
 
   public:
 
 Lugar(){}
 
-Lugar(string Codi_Vc, string Codi_Dc, string Codi_Bc, string Num_Pc, double LongC, double LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC , string Codic){
+Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC , string Codic){
     Codi = Codic;
     Codi_V=Codi_Vc;
     Codi_D=Codi_Dc;
@@ -116,7 +116,7 @@ Lugar(string Codi_Vc, string Codi_Dc, string Codi_Bc, string Num_Pc, double Long
     Lat=LatC;
 }
 
-Lugar(const Lugar &Loc){
+Lugar(const Lugar & Loc){
     Codi = Loc.Codi;
     Codi_V=Loc.Codi_V;
     Codi_D=Loc.Codi_D;
@@ -133,10 +133,10 @@ Lugar(const Lugar &Loc){
 //-----------Get-------------
 
 string GetCodi()const {return Codi;}
-string GetCodi_V()const {return Codi_V;}
-string GetCodi_D()const {return Codi_D;}
-string GetCodi_B()const {return Codi_B;}
-string GetNum_P()const {return Num_P;}
+int GetCodi_V()const {return Codi_V;}
+int GetCodi_D()const {return Codi_D;}
+int GetCodi_B()const {return Codi_B;}
+int GetNum_P()const {return Num_P;}
 string GetNom_V()const {return Nom_V;}
 string GetNom_D()const {return Nom_D;}
 string GetNom_B()const {return Nom_B;}
@@ -147,30 +147,30 @@ string GetLat()const  {return Lat;}
 //----------Set--------------
 
 void SetCodi(string sCodi){Codi = sCodi;}
-void SetCodi_V(string Codi_Vs){ Codi_V=Codi_Vs;}
-void SetCodi_D(string Codi_Ds){ Codi_D=Codi_Ds;}
-void SetCodi_B(string Codi_Bs){ Codi_B=Codi_Bs;}
-void SetNum_P(string Num_Ps){ Num_P=Num_Ps;}
+void SetCodi_V(int Codi_Vs){ Codi_V=Codi_Vs;}
+void SetCodi_D(int Codi_Ds){ Codi_D=Codi_Ds;}
+void SetCodi_B(int Codi_Bs){ Codi_B=Codi_Bs;}
+void SetNum_P(int Num_Ps){ Num_P=Num_Ps;}
 void SetNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
 void SetNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
 void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
 void SetTipus_V(string Tipus_Vs){Tipus_V=Tipus_Vs;}
-void SetLong(string LongS){Long=LongS;}
-void SetLat(string LatS){Lat=LatS;}
+void SetLong(string LongS){Long = LongS;}
+void SetLat(string LatS){Lat = LatS;}
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
-os<<"---------------------------"<<endl;
-  os<<"Codi via :"<<Loc.Codi_V<<endl;
-  os<<"Codi districte :"<<Loc.Codi_D<<endl;
-  os<<"Codi barri :"<<Loc.Codi_B<<endl;
-  os<<"nom de via: "<<Loc.Nom_V<<endl;
-  os<<"nom de barri: "<<Loc.Nom_B<<endl;
-  os<<"nom de districte: "<<Loc.Nom_D<<endl;
-  os<<"tipus de via: "<<Loc.Tipus_V<<endl;
-  os<<"numero postal: "<<Loc.Num_P<<endl;
-  os<<" Laltitud: "<<Loc.Lat<<endl;
-  os<<"Longitud: "<<Loc.Long<<endl;
+    os<<"---------------------------"<<endl;
+    os<<"Codi via :"<<Loc.Codi_V<<endl;
+    os<<"Codi districte :"<<Loc.Codi_D<<endl;
+    os<<"Codi barri :"<<Loc.Codi_B<<endl;
+    os<<"nom de via: "<<Loc.Nom_V<<endl;
+    os<<"nom de barri: "<<Loc.Nom_B<<endl;
+    os<<"nom de districte: "<<Loc.Nom_D<<endl;
+    os<<"tipus de via: "<<Loc.Tipus_V<<endl;
+    os<<"numero postal: "<<Loc.Num_P<<endl;
+    os<<" Laltitud: "<<Loc.Lat<<endl;
+    os<<"Longitud: "<<Loc.Long<<endl;
   os<<"-------------------------------"<<endl;
   os<<endl;
 
@@ -202,10 +202,10 @@ public:
         int AJ_Id  ; //Area de Joc Id , Area de Joc Edat Id
         string AJ_Edat , AJ_Edat_Id; //Area de Joc Edat
         string Codi , Tipus ; //Codi , Tipus d'objecte
-        string Codi_V , Codi_D , Codi_B , Num_P; //Codi Via , Codi Districte , Codi Barri
+        int Codi_V , Codi_D , Codi_B , Num_P; //Codi Via , Codi Districte , Codi Barri
         string Nom_V , Nom_D , Nom_B; //Nom Via , Nom Districte , Nom Barri
         string Tipus_V , Espai_Verd_Nom; //Tipus Via , Espai Verd Nom
-        string  Espai_Verd_Codi; //Numero Postal , Espai Verd Codi
+        int  Espai_Verd_Codi; //Numero Postal , Espai Verd Codi
         string Long , Lat ; //Longitud , Latitud ,  Area de Joc M2
         string x_etrs89 , y_etrs89; // xetrs89 , yetrs89
         double AJ_M2;
