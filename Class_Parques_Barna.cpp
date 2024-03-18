@@ -72,8 +72,6 @@ friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
     os<<"Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
     os<<"Codi: "<< Obj.Codi<< endl;
     os<<"Tipus: "<< Obj.Tipus<< endl;
-    os<<"-------------------------------"<<endl;
-    os<<endl;
 
     return os;
 }
@@ -84,8 +82,8 @@ class Lugar
 {
   private:
 
-  int  Codi_V , Codi_D , Codi_B ; //Codi Via , Codi Districte , Codi Barri
-  string Nom_V , Nom_D , Nom_B , Codi ; //Nom Via , Nom Districte , Nom Barri
+  int  Codi_V , Codi_D , Codi_B , AJ_Id ; //Codi Via , Codi Districte , Codi Barri
+  string Nom_V , Nom_D , Nom_B ; //Nom Via , Nom Districte , Nom Barri
   string Tipus_V; //Tipus Via
   int Num_P; //Numero Postal
   string Long , Lat; //Longitud  Latitud
@@ -94,8 +92,8 @@ class Lugar
 
 Lugar(){}
 
-Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC , string Codic){
-    Codi = Codic;
+Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC , int AJ_Idc){
+    AJ_Id = AJ_Idc;
     Codi_V=Codi_Vc;
     Codi_D=Codi_Dc;
     Codi_B=Codi_Bc;
@@ -109,7 +107,7 @@ Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string La
 }
 
 Lugar(const Lugar & Loc){
-    Codi = Loc.Codi;
+    AJ_Id = Loc.AJ_Id;
     Codi_V=Loc.Codi_V;
     Codi_D=Loc.Codi_D;
     Codi_B=Loc.Codi_B;
@@ -124,35 +122,37 @@ Lugar(const Lugar & Loc){
 
 //-----------Get-------------
 
-string GetCodi()const {return Codi;}
-int GetCodi_V()const {return Codi_V;}
-int GetCodi_D()const {return Codi_D;}
-int GetCodi_B()const {return Codi_B;}
-int GetNum_P()const {return Num_P;}
-string GetNom_V()const {return Nom_V;}
-string GetNom_D()const {return Nom_D;}
-string GetNom_B()const {return Nom_B;}
-string GetTipus_V()const {return Tipus_V;}
-string GetLong()const  {return Long;}
-string GetLat()const  {return Lat;}
+int getAJ_Id()const {return AJ_Id;}
+int getCodi_V()const {return Codi_V;}
+int getCodi_D()const {return Codi_D;}
+int getCodi_B()const {return Codi_B;}
+int getNum_P()const {return Num_P;}
+string getNom_V()const {return Nom_V;}
+string getNom_D()const {return Nom_D;}
+string getNom_B()const {return Nom_B;}
+string getTipus_V()const {return Tipus_V;}
+string getLong()const  {return Long;}
+string getLat()const  {return Lat;}
 
 //----------Set--------------
 
-void SetCodi(string sCodi){Codi = sCodi;}
-void SetCodi_V(int Codi_Vs){ Codi_V=Codi_Vs;}
-void SetCodi_D(int Codi_Ds){ Codi_D=Codi_Ds;}
-void SetCodi_B(int Codi_Bs){ Codi_B=Codi_Bs;}
-void SetNum_P(int Num_Ps){ Num_P=Num_Ps;}
-void SetNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
-void SetNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
-void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
-void SetTipus_V(string Tipus_Vs){Tipus_V=Tipus_Vs;}
-void SetLong(string LongS){Long = LongS;}
-void SetLat(string LatS){Lat = LatS;}
+void setAJ_Id(int sAJ_Id){AJ_Id = sAJ_Id;}
+void setCodi_V(int Codi_Vs){ Codi_V=Codi_Vs;}
+void setCodi_D(int Codi_Ds){ Codi_D=Codi_Ds;}
+void setCodi_B(int Codi_Bs){ Codi_B=Codi_Bs;}
+void setNum_P(int Num_Ps){ Num_P=Num_Ps;}
+void setNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
+void setNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
+void setNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
+void setTipus_V(string Tipus_Vs){Tipus_V=Tipus_Vs;}
+void setLong(string LongS){Long = LongS;}
+void setLat(string LatS){Lat = LatS;}
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
-    os<<"---------------------------"<<endl;
+    os<<"-------------------------------"<<endl;
+    os<<"ººººººººººººººººººººººººººººººº"<<endl;
+    os<<"-------------------------------"<<endl;
     os<<"Codi via :"<<Loc.Codi_V<<endl;
     os<<"Codi districte :"<<Loc.Codi_D<<endl;
     os<<"Codi barri :"<<Loc.Codi_B<<endl;
@@ -163,8 +163,6 @@ friend ostream & operator<<(ostream & os, const Lugar & Loc){
     os<<"numero postal: "<<Loc.Num_P<<endl;
     os<<" Laltitud: "<<Loc.Lat<<endl;
     os<<"Longitud: "<<Loc.Long<<endl;
-  os<<"-------------------------------"<<endl;
-  os<<endl;
 
   return os;
 }
@@ -176,6 +174,8 @@ typedef vector<Lugar> VL;
 
 class Parques_Barna
 {
+typedef vector<Parques_Barna> VPB;
+VPB PB;
 VOP Obj;
 VL Lug;
 
@@ -209,6 +209,25 @@ public:
 
         while(Data>>Codi>>AJ_Id>>Tipus>>AJ_M2>>AJ_Edat_Id>>AJ_Edat>>Codi_V>>Tipus_V>>Nom_V>>Num_P>>Codi_D>>Nom_D>>Codi_B>>Nom_B>>x_etrs89>>y_etrs89>>Long>>Lat>>Espai_Verd_Codi>>Espai_Verd_Nom)
         {
+            L.setAJ_Id(AJ_Id);
+            L.setCodi_V(Codi_V);
+            L.setCodi_D(Codi_D);
+            L.setCodi_B(Codi_B);
+            L.setLat(Lat);
+            L.setLong(Long);
+            L.setTipus_V(Tipus_V);
+            L.setNum_P(Num_P);
+            L.setNom_V(Nom_V);
+            L.setNom_D(Nom_D);
+            L.setNom_B(Nom_B);
+
+            if(L.getAJ_Id() != C.getAJ_Id())
+            {
+                Lug.push_back(L);
+                cout<<L;
+
+            }
+
             C.setAJ_Id(AJ_Id);
             C.setAJ_M2(AJ_M2);
             C.setAJ_Edat_Id(AJ_Edat_Id);
@@ -216,23 +235,9 @@ public:
             C.setCodi(Codi);
             C.setTipus(Tipus);
 
-            L.SetCodi(Codi);
-            L.SetCodi_V(Codi_V);
-            L.SetCodi_D(Codi_D);
-            L.SetCodi_B(Codi_B);
-            L.SetLat(Lat);
-            L.SetLong(Long);
-            L.SetTipus_V(Tipus_V);
-            L.SetNum_P(Num_P);
-            L.SetNom_V(Nom_V);
-            L.SetNom_D(Nom_D);
-            L.SetNom_B(Nom_B);
 
             Obj.push_back(C);
-            Lug.push_back(L);
-
             cout<<C;
-            cout<<L;
         }
     }
 };
