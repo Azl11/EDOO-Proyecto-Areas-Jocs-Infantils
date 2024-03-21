@@ -8,16 +8,31 @@ cout<<"Escull una opcio:\n" <<endl;
 cout<<"(1): Consultar informacio parc \n"<<endl;
 cout<<"(2):Modificar Informacio parc \n"<<endl;
 cout<<"(3):Eliminar Parc/Objecte \n"<<endl;
-cout<<"(4):Afegir Parc/Objecte \n"<<endl; 
+cout<<"(4):Afegir Parc/Objecte \n"<<endl;
 cout<<"(5):Comparar Parcs \n"<<endl;
 cout<<"(6):Identificar Parcs en zona\n"<<endl;
-cout<<"|-------------------------------------------------------------------------|"<<endl;    
+cout<<"|-------------------------------------------------------------------------|"<<endl;
 }
 
-void Repetir(int OPb){
 
-cin>>OPb;
-selecM1(int OPb);
+
+void selecM1(int OP);
+void Repetir(int OPb);
+
+
+
+
+
+
+int main(){
+int opcion;
+MENU();
+cin>>opcion;
+selecM1(opcion);
+
+
+
+
 }
 
 void selecM1(int OP){
@@ -42,20 +57,13 @@ case 6: cout<<" Identificar Parcs en zona escollida! "<<endl;
     break;
     default:
       cout<<"Elije una opcion del menu!!! "<<endl;
-        Repetir(OPb);
+        Repetir(OP);
         break;
 }
-
-
-
-
-
-int main(){
-int opcion;
-MENU();
-selecM1(opcion);
-
-
-
-    
 }
+void Repetir(int OPb){
+
+cin>>OPb;
+selecM1(OPb);
+}
+
