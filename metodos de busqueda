@@ -30,7 +30,7 @@ int main() {
     if (indice != -1){
         cout << "El parque "" << nombreBuscado << "" se encuentra en la posición " << indice <<endl;}
     else{
-        cout << "El parque "" << nombreBuscado << "" no se encontró." << std::endl;}
+        cout << "El parque "" << nombreBuscado << "" no se encontró." <<endl;}
 
     return 0;
 }
