@@ -78,6 +78,8 @@ friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
 
 };
 
+typedef vector<string> VStr;
+
 class Lugar
 {
   private:
@@ -161,7 +163,7 @@ friend ostream & operator<<(ostream & os, const Lugar & Loc){
     os<<"nom de districte: "<<Loc.Nom_D<<endl;
     os<<"tipus de via: "<<Loc.Tipus_V<<endl;
     os<<"numero postal: "<<Loc.Num_P<<endl;
-    os<<" Laltitud: "<<Loc.Lat<<endl;
+    os<<" Latitud: "<<Loc.Lat<<endl;
     os<<"Longitud: "<<Loc.Long<<endl;
 
   return os;
@@ -172,37 +174,26 @@ friend ostream & operator<<(ostream & os, const Lugar & Loc){
 typedef vector<ObjetoParque> VOP;
 typedef vector<Lugar> VL;
 
-
-class Parque
+class Parques_Barna
 {
+
 private:
 
-    VOP Obj;
-    VL Lug;
+VOP Obj;
+VL Lug;
+
+VOP O;
+Lugar Lloc;
 
 public:
 
-    Parque(){}
+    Parques_Barna(){}
 
-    Parque(VOP & C_Obj , VL & C_Lug)
+    Parques_Barna(VOP & C_Obj , VL & C_Lug)
     {
         Obj = C_Obj;
         Lug = C_Lug;
     }
-    //altres mètrodes de l'API
-
-};
-
-typedef vector<Parque> VPB;
-
-class Parques_Barna
-{
-
-VPB PB;
-VOP Obj;
-VL Lug;
-
-public:
 
     Parques_Barna(ifstream & Data , VOP & C_Obj , VL & C_Lug)
     {
@@ -239,7 +230,6 @@ public:
             if(L.getAJ_Id() != C.getAJ_Id())
             {
                 Lug.push_back(L);
-                cout<<L;
             }
 
             C.setAJ_Id(AJ_Id);
@@ -250,24 +240,109 @@ public:
             C.setTipus(Tipus);
 
             Obj.push_back(C);
-            cout<<C;
-
-
-
         }
         C_Obj = Obj;
         C_Lug = Lug;
-        Parque P(C_Obj,C_Lug);
-        VPB.push_back(P); //omplim el vector de parques
+    }
+
+    //Metodes
+
+    ObjetoParque getObj(int q){return O[q];}
+    Lugar getLloc(){return Lloc;}
+
+    void setO(int q, VOP S_Obj){O.push_back(S_Obj[q]);}
+    void setLloc(Lugar S_Lloc){Lloc = S_Lloc;}
+    void clearO(){O.clear();}
+
+};
+
+typedef vector<Parques_Barna> VPB;
+
+class Parque
+{
+private:
+
+    VOP Obj;
+    VL Lug;
+    vector<vector<VOP>> MObj;
+
+public:
+
+//Constructors
+
+    Parque(){}
+
+    Parque(VOP & C_Obj , VL & C_Lug , VPB & B)
+    {
+        Obj = C_Obj;
+        Lug = C_Lug;
+        int z = 0;
+        Parques_Barna C(Obj,Lug);
+        for(int x = 0; Lug.size() > x; x++)
+        {
+            if(Obj[z].getAJ_Id() == Lug[x].getAJ_Id())
+            {
+                while(Obj[z].getAJ_Id() == Lug[x].getAJ_Id())
+                {
+                C.setO(z,Obj);
+                z++;
+                }
+                z++;
+            }
+            C.setLloc(Lug[x]);
+            B.push_back(C);
+            C.clearO();
+        }
     }
 };
+
+int Converter(char S)
+{
+    int N;
+    vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
+    for(int x = 0; x<=Lista.size();x++)
+    {
+        if(S ==  Lista[x])
+        {
+            N = x;
+        }
+
+    }
+    return N;
+}
+
+void VectorizingLongLat(string Str, VStr & V)
+{
+    string Num = "";
+    for(int x = 0; Str.size()>x; x++)
+    {
+        if(Str[x] == '.')
+        {
+        V.push_back(Num);
+        Num = "";
+        }
+        if(Str[x] != '.')
+        {
+            Num = Num+Str[x];
+        }
+    }
+    V.push_back(Num);
+}
 
 int main()
 {
     VOP C;
     VL L;
+    VPB B;
+    VStr V;
 
     ifstream Data("DATA.txt");
-    Parques_Barna Parque1(Data,C,L);
-
+    Parques_Barna Par(Data,C,L);
+    Parque P(C,L,B);
+    //Ejemplo
+    cout<<B[0].getLloc()<<endl<<B[0].getObj(0);
+    VectorizingLongLat(B[0].getLloc().getLong(),V);
+    cout<<V[0]<<"."<<V[1]<<"."<<V[2]<<endl;
+    cout<<Converter(V[0][0]);
 }
+
