@@ -76,6 +76,19 @@ friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
     return os;
 }
 
+ObjetoParque & operator = (const ObjetoParque & Obj )
+{
+    if(this != &Obj)
+    {
+        this -> AJ_Id = Obj.AJ_Id;
+        this -> AJ_M2 = Obj.AJ_M2;
+        this -> AJ_Edat_Id = Obj.AJ_Edat_Id;
+        this -> AJ_Edat = Obj.AJ_Edat;
+        this -> Codi = Obj.Codi;
+        this -> Tipus = Obj.Tipus;
+    }
+}
+
 };
 
 typedef vector<string> VStr;
@@ -229,7 +242,7 @@ public:
 
             if(L.getAJ_Id() != C.getAJ_Id())
             {
-                Lug.push_back(L);
+                C_Lug.push_back(L);
             }
 
             C.setAJ_Id(AJ_Id);
@@ -239,10 +252,8 @@ public:
             C.setCodi(Codi);
             C.setTipus(Tipus);
 
-            Obj.push_back(C);
+            C_Obj.push_back(C);
         }
-        C_Obj = Obj;
-        C_Lug = Lug;
     }
 
     //Metodes
@@ -340,9 +351,21 @@ int main()
     Parques_Barna Par(Data,C,L);
     Parque P(C,L,B);
     //Ejemplo
-    cout<<B[0].getLloc()<<endl<<B[0].getObj(0);
+    cout<<B[0].getLloc()<<endl<<B[0].getObj(0)<<endl<<B[0].getObj(1);
+
+
+    /**
     VectorizingLongLat(B[0].getLloc().getLong(),V);
     cout<<V[0]<<"."<<V[1]<<"."<<V[2]<<endl;
-    cout<<Converter(V[0][0]);
-}
 
+    for(int q = 0; q < V.size();q++)
+    {
+        for(int x = 0; x < V[q].size();x++)
+        {
+            cout<<Converter(V[q][x]);
+        }
+        cout<<".";
+    }
+    **/
+
+}
