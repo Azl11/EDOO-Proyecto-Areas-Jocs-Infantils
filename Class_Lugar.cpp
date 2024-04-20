@@ -1,113 +1,109 @@
 #include<iostream>
+#include<fstream>
+#include<vector>
 
 using namespace std;
+
+using namespace std;
+
+///--------------------------------------------> CLASSE
 
 class Lugar
 {
   private:
 
-  int Codi_V , Codi_D , Codi_B ; //Codi Via , Codi Districte , Codi Barri , Codi
-  string Nom_V , Nom_D , Nom_B,Codi; //Nom Via , Nom Districte , Nom Barri
-  string Tipus_V; //Tipus Via 
+  int  Codi_V , Codi_D , Codi_B , AJ_Id ; //Codi Via , Codi Districte , Codi Barri
+  string Nom_V , Nom_D , Nom_B ; //Nom Via , Nom Districte , Nom Barri
+  string Tipus_V; //Tipus Via
   int Num_P; //Numero Postal
   string Long , Lat; //Longitud  Latitud
 
   public:
 
+///------------------------------> CONSTRUCTORS
+
 Lugar(){}
 
-Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC,string CodiC){
-Codi_V=Codi_Vc;
- Codi_D=Codi_Dc;
- Codi_B=Codi_Bc;
- Nom_V= Nom_Vc;
- Nom_D=Nom_Dc;
- Nom_B=Nom_Bc;
- Tipus_V=Tipus_VC;
- Num_P=Num_Pc;
- Long=LongC;
- Lat=LatC;
-  Codi=CodiC;
+Lugar(int Codi_V, int Codi_D, int Codi_B, int Num_P, string Long, string Lat,string Nom_V, string Nom_D, string Nom_B, string Tipus_V , int AJ_Id){
+    this -> AJ_Id = AJ_Id;
+    this -> Codi_V=Codi_V;
+    this -> Codi_D=Codi_D;
+    this -> Codi_B=Codi_B;
+    this -> Nom_V= Nom_V;
+    this -> Nom_D=Nom_D;
+    this -> Nom_B=Nom_B;
+    this -> Tipus_V=Tipus_V;
+    this -> Num_P=Num_P;
+    this -> Long=Long;
+    this -> Lat=Lat;
 }
 
-Lugar(const Lugar &Loc){
-  Codi_V=Loc.Codi_V;
-  Codi_D=Loc.Codi_D;
-  Codi_B=Loc.Codi_B;
-  Nom_V=Loc.Nom_V;
-  Nom_D=Loc.Nom_D;
-  Nom_B=Loc.Nom_B;
-  Tipus_V=Loc.Tipus_V;
-  Num_P=Loc.Num_P;
-  Long=Loc.Long;
-  Lat=Loc.Lat;
-  Codi=Loc.Codi;
+Lugar(const Lugar & Loc){
+    AJ_Id = Loc.AJ_Id;
+    Codi_V=Loc.Codi_V;
+    Codi_D=Loc.Codi_D;
+    Codi_B=Loc.Codi_B;
+    Nom_V=Loc.Nom_V;
+    Nom_D=Loc.Nom_D;
+    Nom_B=Loc.Nom_B;
+    Tipus_V=Loc.Tipus_V;
+    Num_P=Loc.Num_P;
+    Long=Loc.Long;
+    Lat=Loc.Lat;
 }
 
-//-----------Get-------------
+///-----------------------------------------------> METODES
 
-int GetCodi_V()const {return Codi_V;}
-int GetCodi_D()const {return Codi_D;}
-int GetCodi_B()const {return Codi_B;}
-int GetNum_P()const {return Num_P;}
-string GetCodi()const  {return Codi;}
-string GetNom_V()const {return Nom_V;}
-string GetNom_D()const {return Nom_D;}
-string GetNom_B()const {return Nom_B;}                      
-string GetTipus_V()const {return Tipus_V;}
-string GetLong()const  {return Long;}
-string GetLat()const  {return Lat;}
+                ///METODES GET
 
-//----------Set--------------
+int getAJ_Id()const {return AJ_Id;}
+int getCodi_V()const {return Codi_V;}
+int getCodi_D()const {return Codi_D;}
+int getCodi_B()const {return Codi_B;}
+int getNum_P()const {return Num_P;}
+string getNom_V()const {return Nom_V;}
+string getNom_D()const {return Nom_D;}
+string getNom_B()const {return Nom_B;}
+string getTipus_V()const {return Tipus_V;}
+string getLong()const  {return Long;}
+string getLat()const  {return Lat;}
 
-void SetCodi_V(int Codi_Vs){ Codi_V=Codi_Vs;}
-void SetCodi_D(int Codi_Ds){ Codi_D=Codi_Ds;}
-void SetCodi_B(int Codi_Bs){ Codi_B=Codi_Bs;}
-void SetNum_P(int Num_Ps){ Num_P=Num_Ps;}
-void SetNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
-void SetNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
-void SetNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
-void SetTipus_V(string Tipus_Vs){Tipus_V=Tipus_Vs;}
-void SetLong(string LongS){Long=LongS;}
-void SetLat(string LatS){Lat=LatS;}
-void SetCodi(string CodiS){Codi=CodiS;}
+                ///METODES SET
+
+void setAJ_Id(int AJ_Id){this -> AJ_Id = AJ_Id;}
+void setCodi_V(int Codi_V){ this -> Codi_V=Codi_V;}
+void setCodi_D(int Codi_D){ this -> Codi_D=Codi_D;}
+void setCodi_B(int Codi_B){ this -> Codi_B=Codi_B;}
+void setNum_P(int Num_P){ this -> Num_P=Num_P;}
+void setNom_V(string Nom_V){ this -> Nom_V=Nom_V;}
+void setNom_D(string Nom_D){this -> Nom_D=Nom_D;}
+void setNom_B(string Nom_B){ this -> Nom_B=Nom_B;}
+void setTipus_V(string Tipus_V){this -> Tipus_V=Tipus_V;}
+void setLong(string Long){this -> Long = Long;}
+void setLat(string Lat){this -> Lat = Lat;}
+
+                ///OPERADOR COUT
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
-os<<"---------------------------"<<endl;
-  os<<"Codi via :"<<Loc.Codi_V<<endl;
-  os<<"Codi districte :"<<Loc.Codi_D<<endl;
-  os<<"Codi barri :"<<Loc.Codi_B<<endl;
-  os<<"nom de via: "<<Loc.Nom_V<<endl;
-  os<<"nom de barri: "<<Loc.Nom_B<<endl;
-  os<<"nom de districte: "<<Loc.Nom_D<<endl;
-  os<<"tipus de via: "<<Loc.Tipus_V<<endl;
-  os<<"numero postal: "<<Loc.Num_P<<endl;
-  os<<" Laltitud: "<<Loc.Lat<<endl;
-  os<<"Longitud: "<<Loc.Long<<endl;
-  os<<"codigo: "<<Loc.Codi<<endl;
-  os<<"-------------------------------"<<endl;
-  os<<endl;
+    os<<"-------------------------------"<<endl;
+    os<<"ººººººººººººººººººººººººººººººº"<<endl;
+    os<<"-------------------------------"<<endl;
+    os<<"Codi via :"<<Loc.Codi_V<<endl;
+    os<<"Codi districte :"<<Loc.Codi_D<<endl;
+    os<<"Codi barri :"<<Loc.Codi_B<<endl;
+    os<<"nom de via: "<<Loc.Nom_V<<endl;
+    os<<"nom de barri: "<<Loc.Nom_B<<endl;
+    os<<"nom de districte: "<<Loc.Nom_D<<endl;
+    os<<"tipus de via: "<<Loc.Tipus_V<<endl;
+    os<<"numero postal: "<<Loc.Num_P<<endl;
+    os<<" Latitud: "<<Loc.Lat<<endl;
+    os<<"Longitud: "<<Loc.Long<<endl;
+
   return os;
 }
 
-friend istream & operator>>(istream & is, Lugar & Loc){
-
-  is>>Loc.Codi_V;
- is>>Loc.Codi_D;
-  is>>Loc.Codi_B;
-  is>>Loc.Nom_V;
-  is>>Loc.Nom_B;
-  is>>Loc.Nom_D;
-  is>>Loc.Tipus_V;
-  is>>Loc.Num_P;
-  is>>Loc.Lat;
-  is>>Loc.Long;
-  is>>Loc.Codi;
- 
-  return is;
-}
-  
-
 };
+
+typedef vector<Lugar> VL;
 
