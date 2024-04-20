@@ -1,8 +1,13 @@
+
 #include<iostream>
 #include<fstream>
 #include<vector>
 
 using namespace std;
+
+typedef vector<string> VStr;
+
+///-----------------------------------> CLASSE
 
 class ObjetoParque
 {
@@ -15,21 +20,21 @@ class ObjetoParque
 
     public:
 
-//-------CONSTRUCTORS--------
+///--------------------------------> CONSTRUCTORS
 
     ObjetoParque(){}
 
-    ObjetoParque(int C_AJ_Id , double C_AJ_M2 , int C_AJ_Edat_Id, string C_AJ_Edat , string C_Codi , string C_Tipus)
+    ObjetoParque(int AJ_Id , double AJ_M2 , int AJ_Edat_Id, string AJ_Edat , string Codi , string Tipus)
     {
-    AJ_Id = C_AJ_Id;
-    AJ_M2 = C_AJ_M2;
-    AJ_Edat_Id = C_AJ_Edat_Id;
-    AJ_Edat = C_AJ_Edat;
-    Codi = C_Codi;
-    Tipus = C_Tipus;
+    this -> AJ_Id = AJ_Id;
+    this -> AJ_M2 = AJ_M2;
+    this -> AJ_Edat_Id = AJ_Edat_Id;
+    this -> AJ_Edat = AJ_Edat;
+    this -> Codi = Codi;
+    this -> Tipus = Tipus;
     }
 
-//----Constructor Còpia------
+                ///CONSTRUCTOR CÒPIA
 
     ObjetoParque(const ObjetoParque & Obj)
     {
@@ -41,9 +46,9 @@ class ObjetoParque
     Tipus = Obj.Tipus;
     }
 
-//---------MÉTODES-----------
+///---------------------------------------------------> METODES
 
-//-----------Get-------------
+                    ///METODES GET
 
     int getAJ_Id()const{return AJ_Id;}
     double getAJ_M2()const{return AJ_M2;}
@@ -52,16 +57,16 @@ class ObjetoParque
     string getCodi()const{return Codi;}
     string getTipus()const{return Tipus;}
 
-//----------Set--------------
+                    ///METODES SET
 
-    void setAJ_Id(int S_AJ_Id){AJ_Id = S_AJ_Id;}
-    void setAJ_M2(double S_AJ_M2){AJ_M2 = S_AJ_M2;}
-    void setAJ_Edat_Id(int S_AJ_Edat_Id){AJ_Edat_Id = S_AJ_Edat_Id;}
-    void setAJ_Edat(string S_AJ_Edat){AJ_Edat = S_AJ_Edat;}
-    void setCodi(string S_Codi){Codi = S_Codi;}
-    void setTipus(string S_Tipus){Tipus = S_Tipus;}
+    void setAJ_Id(int AJ_Id){this -> AJ_Id = AJ_Id;}
+    void setAJ_M2(double AJ_M2){this -> AJ_M2 = AJ_M2;}
+    void setAJ_Edat_Id(int AJ_Edat_Id){this -> AJ_Edat_Id = AJ_Edat_Id;}
+    void setAJ_Edat(string AJ_Edat){this -> AJ_Edat = AJ_Edat;}
+    void setCodi(string Codi){this -> Codi = Codi;}
+    void setTipus(string Tipus){this -> Tipus = Tipus;}
 
-//---------Altres--------------
+                    ///OPERADOR COUT
 
 friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
 {
@@ -76,22 +81,11 @@ friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
     return os;
 }
 
-ObjetoParque & operator = (const ObjetoParque & Obj )
-{
-    if(this != &Obj)
-    {
-        this -> AJ_Id = Obj.AJ_Id;
-        this -> AJ_M2 = Obj.AJ_M2;
-        this -> AJ_Edat_Id = Obj.AJ_Edat_Id;
-        this -> AJ_Edat = Obj.AJ_Edat;
-        this -> Codi = Obj.Codi;
-        this -> Tipus = Obj.Tipus;
-    }
-}
-
 };
 
-typedef vector<string> VStr;
+typedef vector<ObjetoParque> VOP;
+
+///--------------------------------------------> CLASSE
 
 class Lugar
 {
@@ -105,20 +99,22 @@ class Lugar
 
   public:
 
+///------------------------------> CONSTRUCTORS
+
 Lugar(){}
 
-Lugar(int Codi_Vc, int Codi_Dc, int Codi_Bc, int Num_Pc, string LongC, string LatC,string Nom_Vc, string Nom_Dc, string Nom_Bc, string Tipus_VC , int AJ_Idc){
-    AJ_Id = AJ_Idc;
-    Codi_V=Codi_Vc;
-    Codi_D=Codi_Dc;
-    Codi_B=Codi_Bc;
-    Nom_V= Nom_Vc;
-    Nom_D=Nom_Dc;
-    Nom_B=Nom_Bc;
-    Tipus_V=Tipus_VC;
-    Num_P=Num_Pc;
-    Long=LongC;
-    Lat=LatC;
+Lugar(int Codi_V, int Codi_D, int Codi_B, int Num_P, string Long, string Lat,string Nom_V, string Nom_D, string Nom_B, string Tipus_V , int AJ_Id){
+    this -> AJ_Id = AJ_Id;
+    this -> Codi_V=Codi_V;
+    this -> Codi_D=Codi_D;
+    this -> Codi_B=Codi_B;
+    this -> Nom_V= Nom_V;
+    this -> Nom_D=Nom_D;
+    this -> Nom_B=Nom_B;
+    this -> Tipus_V=Tipus_V;
+    this -> Num_P=Num_P;
+    this -> Long=Long;
+    this -> Lat=Lat;
 }
 
 Lugar(const Lugar & Loc){
@@ -135,7 +131,9 @@ Lugar(const Lugar & Loc){
     Lat=Loc.Lat;
 }
 
-//-----------Get-------------
+///-----------------------------------------------> METODES
+
+                ///METODES GET
 
 int getAJ_Id()const {return AJ_Id;}
 int getCodi_V()const {return Codi_V;}
@@ -149,19 +147,21 @@ string getTipus_V()const {return Tipus_V;}
 string getLong()const  {return Long;}
 string getLat()const  {return Lat;}
 
-//----------Set--------------
+                ///METODES SET
 
-void setAJ_Id(int sAJ_Id){AJ_Id = sAJ_Id;}
-void setCodi_V(int Codi_Vs){ Codi_V=Codi_Vs;}
-void setCodi_D(int Codi_Ds){ Codi_D=Codi_Ds;}
-void setCodi_B(int Codi_Bs){ Codi_B=Codi_Bs;}
-void setNum_P(int Num_Ps){ Num_P=Num_Ps;}
-void setNom_V(string Nom_Vs){ Nom_V=Nom_Vs;}
-void setNom_D(string Nom_Ds){ Nom_D=Nom_Ds;}
-void setNom_B(string Nom_Bs){ Nom_B=Nom_Bs;}
-void setTipus_V(string Tipus_Vs){Tipus_V=Tipus_Vs;}
-void setLong(string LongS){Long = LongS;}
-void setLat(string LatS){Lat = LatS;}
+void setAJ_Id(int AJ_Id){this -> AJ_Id = AJ_Id;}
+void setCodi_V(int Codi_V){ this -> Codi_V=Codi_V;}
+void setCodi_D(int Codi_D){ this -> Codi_D=Codi_D;}
+void setCodi_B(int Codi_B){ this -> Codi_B=Codi_B;}
+void setNum_P(int Num_P){ this -> Num_P=Num_P;}
+void setNom_V(string Nom_V){ this -> Nom_V=Nom_V;}
+void setNom_D(string Nom_D){this -> Nom_D=Nom_D;}
+void setNom_B(string Nom_B){ this -> Nom_B=Nom_B;}
+void setTipus_V(string Tipus_V){this -> Tipus_V=Tipus_V;}
+void setLong(string Long){this -> Long = Long;}
+void setLat(string Lat){this -> Lat = Lat;}
+
+                ///OPERADOR COUT
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
@@ -184,49 +184,109 @@ friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
 };
 
-typedef vector<ObjetoParque> VOP;
 typedef vector<Lugar> VL;
 
-class Parques_Barna
-{
+///----------------------------------> CLASSE
 
+class Parque
+{
 private:
 
-VOP Obj;
-VL Lug;
+    ObjetoParque OBJ;
+    Lugar LUG;
+    VOP Obj;
 
-VOP O;
-Lugar Lloc;
+                ///METODES PRIVATS
+
+    Lugar getLUG()const {return LUG;}
+    ObjetoParque getVObj(int q)const {return Obj[q];}
 
 public:
 
-    Parques_Barna(){}
+///-----------------------------------------> CONSTRUCTORS
 
-    Parques_Barna(VOP & C_Obj , VL & C_Lug)
+    Parque(){}
+
+///----------------------------------------------------------> METODES
+
+    void Insertar_En_Vector_Objeto(const ObjetoParque & OBJ)
     {
-        Obj = C_Obj;
-        Lug = C_Lug;
+        this -> OBJ = OBJ;
+        Obj.push_back(OBJ);
     }
 
-    Parques_Barna(ifstream & Data , VOP & C_Obj , VL & C_Lug)
-    {
-        int AJ_Id , AJ_Edat_Id ; //Area de Joc Id , Area de Joc Edat Id
-        string AJ_Edat; //Area de Joc Edat
-        string Codi , Tipus ; //Codi , Tipus d'objecte
-        int Codi_V , Codi_D , Codi_B , Num_P; //Codi Via , Codi Districte , Codi Barri
-        string Nom_V , Nom_D , Nom_B; //Nom Via , Nom Districte , Nom Barri
-        string Tipus_V , Espai_Verd_Nom; //Tipus Via , Espai Verd Nom
-        int  Espai_Verd_Codi; //Numero Postal , Espai Verd Codi
-        string Long , Lat ; //Longitud , Latitud ,  Area de Joc M2
-        string x_etrs89 , y_etrs89; // xetrs89 , yetrs89
-        double AJ_M2;
+    void SetLUG(Lugar & LUG){this -> LUG = LUG;}
 
-        ObjetoParque C;
-        Lugar L;
+     void Clear(){Obj.clear();}
+
+                    ///OPERADOR COUT
+
+     friend ostream & operator<<(ostream & os, const Parque & Pp){
+        os<<Pp.LUG;
+        for(int x = 0; x < Pp.Obj.size(); x++)
+        {
+            os<<Pp.Obj[x];
+        }
+
+    return os;
+    }
+};
+
+///-----------------------------------------------> CLASSE GLOBAL
+
+class Parques_Barna
+{
+    private:
+
+    VOP Obj;
+    VL Lug;
+    Lugar L;
+    ObjetoParque O;
+    vector<Parque>VPS;
+
+            ///METODES PRIVATS
+
+    void Ordenar(vector<Parque> & VPS)
+    {
+        Parque P;
+        int x = 0;
+        for(int l = 0; l < Lug.size();l++)
+        {
+        P.SetLUG(Lug[l]);
+        if(Obj[x].getAJ_Id() == Lug[l].getAJ_Id())
+            {
+                while(Obj[x].getAJ_Id() == Lug[l].getAJ_Id())
+                {
+                    P.Insertar_En_Vector_Objeto(Obj[x]);
+                    x++;
+                }
+            }
+        VPS.push_back(P);
+        P.Clear();
+        }
+    }
+
+    public:
+
+///-------------------------------------------> CONSTRUCTORS
+
+    Parques_Barna(ifstream & Data)
+    {
+        int AJ_Id , AJ_Edat_Id;
+        string AJ_Edat ;
+        string Codi /**Codi de l'objecte*/, Tipus /**Tipus d'objecte*/;
+        int Codi_V , Codi_D , Codi_B , Num_P ;
+        string Nom_V , Nom_D , Nom_B ;
+        string Tipus_V , SPVN/**Espai Verd Codi*/;
+        int  SPVC/**Espai Verd Nom*/;
+        string Long , Lat ;
+        string x_etrs89 , y_etrs89;
+        double AJ_M2 ;
 
         getline(Data,Codi);
 
-        while(Data>>Codi>>AJ_Id>>Tipus>>AJ_M2>>AJ_Edat_Id>>AJ_Edat>>Codi_V>>Tipus_V>>Nom_V>>Num_P>>Codi_D>>Nom_D>>Codi_B>>Nom_B>>x_etrs89>>y_etrs89>>Long>>Lat>>Espai_Verd_Codi>>Espai_Verd_Nom)
+        while(Data>>Codi>>AJ_Id>>Tipus>>AJ_M2>>AJ_Edat_Id>>AJ_Edat>>Codi_V>>Tipus_V>>Nom_V>>Num_P>>Codi_D>>Nom_D>>
+                                                          Codi_B>>Nom_B>>x_etrs89>>y_etrs89>>Long>>Lat>>SPVC>>SPVN)
         {
             L.setAJ_Id(AJ_Id);
             L.setCodi_V(Codi_V);
@@ -240,74 +300,41 @@ public:
             L.setNom_D(Nom_D);
             L.setNom_B(Nom_B);
 
-            if(L.getAJ_Id() != C.getAJ_Id())
-            {
-                C_Lug.push_back(L);
-            }
-
-            C.setAJ_Id(AJ_Id);
-            C.setAJ_M2(AJ_M2);
-            C.setAJ_Edat_Id(AJ_Edat_Id);
-            C.setAJ_Edat(AJ_Edat);
-            C.setCodi(Codi);
-            C.setTipus(Tipus);
-
-            C_Obj.push_back(C);
-        }
-    }
-
-    //Metodes
-
-    ObjetoParque getObj(int q){return O[q];}
-    Lugar getLloc(){return Lloc;}
-
-    void setO(int q, VOP S_Obj){O.push_back(S_Obj[q]);}
-    void setLloc(Lugar S_Lloc){Lloc = S_Lloc;}
-    void clearO(){O.clear();}
-
-};
-
-typedef vector<Parques_Barna> VPB;
-
-class Parque
-{
-private:
-
-    VOP Obj;
-    VL Lug;
-    vector<vector<VOP>> MObj;
-
-public:
-
-//Constructors
-
-    Parque(){}
-
-    Parque(VOP & C_Obj , VL & C_Lug , VPB & B)
-    {
-        Obj = C_Obj;
-        Lug = C_Lug;
-        int z = 0;
-        Parques_Barna C(Obj,Lug);
-        for(int x = 0; Lug.size() > x; x++)
-        {
-            if(Obj[z].getAJ_Id() == Lug[x].getAJ_Id())
-            {
-                while(Obj[z].getAJ_Id() == Lug[x].getAJ_Id())
+            if(L.getAJ_Id() != O.getAJ_Id())
                 {
-                C.setO(z,Obj);
-                z++;
+                    Lug.push_back(L);
                 }
-                z++;
-            }
-            C.setLloc(Lug[x]);
-            B.push_back(C);
-            C.clearO();
+
+            O.setAJ_Id(AJ_Id);
+            O.setAJ_M2(AJ_M2);
+            O.setAJ_Edat_Id(AJ_Edat_Id);
+            O.setAJ_Edat(AJ_Edat);
+            O.setCodi(Codi);
+            O.setTipus(Tipus);
+
+            Obj.push_back(O);
         }
+        Ordenar(VPS);
+    }
+
+///---------------------------------------------------------> METODES
+
+    Parque getParque(int q)const {return VPS[q];}
+
+                        ///OPERADOR COUT
+
+    friend ostream & operator<<(ostream & os, const Parques_Barna & PB){
+        for(int x = 0; x < PB.VPS.size(); x++)
+        {
+          os<<PB.VPS[x];
+        }
+    return os;
     }
 };
 
-int Converter(char S)
+///------------------------------------------------------------> FUNCIONS
+
+int Converter(char S) ///Converteix Chars Numerics a Ints
 {
     int N;
     vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
@@ -322,7 +349,7 @@ int Converter(char S)
     return N;
 }
 
-void VectorizingLongLat(string Str, VStr & V)
+void VectorizingLongLat(string Str, VStr & V) ///Vectoritza els String de Longitud o Latitud
 {
     string Num = "";
     for(int x = 0; Str.size()>x; x++)
@@ -340,32 +367,13 @@ void VectorizingLongLat(string Str, VStr & V)
     V.push_back(Num);
 }
 
+///-------------------------------------------------> MAIN
+
 int main()
 {
-    VOP C;
-    VL L;
-    VPB B;
-    VStr V;
-
     ifstream Data("DATA.txt");
-    Parques_Barna Par(Data,C,L);
-    Parque P(C,L,B);
-    //Ejemplo
-    cout<<B[0].getLloc()<<endl<<B[0].getObj(0)<<endl<<B[0].getObj(1);
-
-
-    /**
-    VectorizingLongLat(B[0].getLloc().getLong(),V);
-    cout<<V[0]<<"."<<V[1]<<"."<<V[2]<<endl;
-
-    for(int q = 0; q < V.size();q++)
-    {
-        for(int x = 0; x < V[q].size();x++)
-        {
-            cout<<Converter(V[q][x]);
-        }
-        cout<<".";
-    }
-    **/
-
+    Parques_Barna P(Data);
+    cout<<P.getParque(475);
+    cout<<P.getParque(890);
+    cout<<P.getParque(5);
 }
