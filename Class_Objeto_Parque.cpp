@@ -1,34 +1,39 @@
 #include<iostream>
+#include<fstream>
 #include<vector>
 
 using namespace std;
+
+typedef vector<string> VStr;
+
+///-----------------------------------> CLASSE
 
 class ObjetoParque
 {
     private:
 
     int AJ_Id , AJ_Edat_Id; //Area de Joc Id , Area de Joc M2 , Area de Joc Edat Id
-    double AJ_M2 ;
-    string AJ_Edat; //Area de Joc Edat
+    string AJ_Edat ; //Area de Joc Edat
     string Codi , Tipus; //Codi , Tipus d'objecte
+    double AJ_M2;
 
     public:
 
-//-------CONSTRUCTORS--------
+///--------------------------------> CONSTRUCTORS
 
     ObjetoParque(){}
 
-    ObjetoParque(int C_AJ_Id , double C_AJ_M2 , int C_AJ_Edat_Id, string C_AJ_Edat , string C_Codi , string C_Tipus)
+    ObjetoParque(int AJ_Id , double AJ_M2 , int AJ_Edat_Id, string AJ_Edat , string Codi , string Tipus)
     {
-    AJ_Id = C_AJ_Id;
-    AJ_M2 = C_AJ_M2;
-    AJ_Edat_Id = C_AJ_Edat_Id;
-    AJ_Edat = C_AJ_Edat;
-    Codi = C_Codi;
-    Tipus = C_Tipus;
+    this -> AJ_Id = AJ_Id;
+    this -> AJ_M2 = AJ_M2;
+    this -> AJ_Edat_Id = AJ_Edat_Id;
+    this -> AJ_Edat = AJ_Edat;
+    this -> Codi = Codi;
+    this -> Tipus = Tipus;
     }
 
-//----Constructor Còpia------
+                ///CONSTRUCTOR CÒPIA
 
     ObjetoParque(const ObjetoParque & Obj)
     {
@@ -40,9 +45,9 @@ class ObjetoParque
     Tipus = Obj.Tipus;
     }
 
-//---------MÉTODES-----------
+///---------------------------------------------------> METODES
 
-//-----------Get-------------
+                    ///METODES GET
 
     int getAJ_Id()const{return AJ_Id;}
     double getAJ_M2()const{return AJ_M2;}
@@ -51,16 +56,16 @@ class ObjetoParque
     string getCodi()const{return Codi;}
     string getTipus()const{return Tipus;}
 
-//----------Set--------------
+                    ///METODES SET
 
-    void setAJ_Id(int S_AJ_Id){AJ_Id = S_AJ_Id;}
-    void setAJ_M2(double S_AJ_M2){AJ_M2 = S_AJ_M2;}
-    void setAJ_Edat_Id(int S_AJ_Edat_Id){AJ_Edat_Id = S_AJ_Edat_Id;}
-    void setAJ_Edat(string S_AJ_Edat){AJ_Edat = S_AJ_Edat;}
-    void setCodi(string S_Codi){Codi = S_Codi;}
-    void setTipus(string S_Tipus){Tipus = S_Tipus;}
+    void setAJ_Id(int AJ_Id){this -> AJ_Id = AJ_Id;}
+    void setAJ_M2(double AJ_M2){this -> AJ_M2 = AJ_M2;}
+    void setAJ_Edat_Id(int AJ_Edat_Id){this -> AJ_Edat_Id = AJ_Edat_Id;}
+    void setAJ_Edat(string AJ_Edat){this -> AJ_Edat = AJ_Edat;}
+    void setCodi(string Codi){this -> Codi = Codi;}
+    void setTipus(string Tipus){this -> Tipus = Tipus;}
 
-//---------Altres--------------
+                    ///OPERADOR COUT
 
 friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
 {
@@ -71,27 +76,13 @@ friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
     os<<"Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
     os<<"Codi: "<< Obj.Codi<< endl;
     os<<"Tipus: "<< Obj.Tipus<< endl;
-    os<<"-------------------------------"<<endl;
-    os<<endl;
 
     return os;
 }
 
-friend istream & operator>>(istream & is, ObjetoParque & Obj){
-
-    
-    is>> Obj.AJ_Id;
-    is>> Obj.AJ_M2;
-    is>> Obj.AJ_Edat_Id;
-    is>>Obj.AJ_Edat;
-    is>>Obj.Codi;
-    is>> Obj.Tipus;
-   
-
-    return is;
-}
-
 };
+
+typedef vector<ObjetoParque> VOP;
 
 
 int main()
