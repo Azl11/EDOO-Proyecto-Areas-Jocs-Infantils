@@ -2,6 +2,7 @@
 #include<iostream>
 #include<fstream>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
 
@@ -70,16 +71,43 @@ class ObjetoParque
 
 friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
 {
-    os<<"-------------------------------"<<endl;
-    os<<"Area de Jocs ID: "<< Obj.AJ_Id<<endl;
-    os<<"Area de Jocs M2: "<< Obj.AJ_M2<<endl;
-    os<<"Area de Jocs Edat ID: "<< Obj.AJ_Edat_Id<<endl;
-    os<<"Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
-    os<<"Codi: "<< Obj.Codi<< endl;
-    os<<"Tipus: "<< Obj.Tipus<< endl;
+    os<<" -------------------------------"<<endl;
+    os<<" Area de Jocs ID: "<< Obj.AJ_Id<<endl;
+    os<<" Area de Jocs M2: "<< Obj.AJ_M2<<endl;
+    os<<" Area de Jocs Edat ID: "<< Obj.AJ_Edat_Id<<endl;
+    os<<" Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
+    os<<" Codi: "<< Obj.Codi<< endl;
+    os<<" Tipus: "<< Obj.Tipus<< endl;
 
     return os;
 }
+
+                    ///OPERATOR CIN
+
+friend istream & operator>>(istream & is, ObjetoParque & Obj)
+{
+    cout<<" - Area de Jocs ID: "; is>>Obj.AJ_Id;
+    cout<<" - Area de Jocs M2: "; is>>Obj.AJ_M2;
+    cout<<" - Area de Jocs Edat ID: "; is>>Obj.AJ_Edat_Id;
+    cout<<" - Area de Jocs Edat: "; is>>Obj.AJ_Edat;
+    cout<<" - Codi: "; is>>Obj.Codi;
+    cout<<" - Tipus: "; is>>Obj.Tipus;
+
+    return is;
+}
+    ObjetoParque & operator = (const ObjetoParque & Obj)
+    {
+        if(this != & Obj)
+        {
+            AJ_Id = Obj.AJ_Id;
+            AJ_M2 = Obj.AJ_M2;
+            AJ_Edat_Id = Obj.AJ_Edat_Id;
+            AJ_Edat = Obj.AJ_Edat;
+            Codi = Obj.Codi;
+            Tipus = Obj.Tipus;
+        }
+        return *this;
+    }
 
 };
 
@@ -165,22 +193,62 @@ void setLat(string Lat){this -> Lat = Lat;}
 
 friend ostream & operator<<(ostream & os, const Lugar & Loc){
 
-    os<<"-------------------------------"<<endl;
-    os<<"ººººººººººººººººººººººººººººººº"<<endl;
-    os<<"-------------------------------"<<endl;
-    os<<"Codi via :"<<Loc.Codi_V<<endl;
-    os<<"Codi districte :"<<Loc.Codi_D<<endl;
-    os<<"Codi barri :"<<Loc.Codi_B<<endl;
-    os<<"nom de via: "<<Loc.Nom_V<<endl;
-    os<<"nom de barri: "<<Loc.Nom_B<<endl;
-    os<<"nom de districte: "<<Loc.Nom_D<<endl;
-    os<<"tipus de via: "<<Loc.Tipus_V<<endl;
-    os<<"numero postal: "<<Loc.Num_P<<endl;
+    os<<" -------------------------------"<<endl;
+    os<<" ººººººººººººººººººººººººººººººº"<<endl;
+    os<<" -------------------------------"<<endl;
+    os<<" Id de l'area de joc :"<<Loc.AJ_Id<<endl;
+    os<<" Codi de la via :"<<Loc.Codi_V<<endl;
+    os<<" Codi del districte :"<<Loc.Codi_D<<endl;
+    os<<" Codi del barri :"<<Loc.Codi_B<<endl;
+    os<<" nom de la via: "<<Loc.Nom_V<<endl;
+    os<<" nom del barri: "<<Loc.Nom_B<<endl;
+    os<<" nom del districte: "<<Loc.Nom_D<<endl;
+    os<<" tipus de via: "<<Loc.Tipus_V<<endl;
+    os<<" numero postal: "<<Loc.Num_P<<endl;
     os<<" Latitud: "<<Loc.Lat<<endl;
-    os<<"Longitud: "<<Loc.Long<<endl;
+    os<<" Longitud: "<<Loc.Long<<endl;
 
   return os;
 }
+
+                ///OPERADOR CIN
+
+friend istream & operator>>(istream & is, Lugar & Loc)
+{
+
+    cout<<" - Id de l'area de joc: "; is>>Loc.AJ_Id;
+    cout<<" - Nom del Districte: "; is>>Loc.Nom_D;
+    cout<<" - Codi del Districte: "; is>>Loc.Codi_D;
+    cout<<" - Nom del Barri: "; is>>Loc.Nom_B;
+    cout<<" - Codi del Barri: "; is>>Loc.Codi_B;
+    cout<<" - Nom de la Via: "; is>>Loc.Nom_V;
+    cout<<" - Codi de la Via: "; is>>Loc.Codi_V;
+    cout<<" - Tipus de Via: "; is>>Loc.Tipus_V;
+    cout<<" - Numero Postal: "; is>>Loc.Num_P;
+    cout<<" - Longitud: "; is>>Loc.Long;
+    cout<<" - Latitud: "; is>>Loc.Lat;
+
+    return is;
+}
+
+Lugar & operator = (const Lugar & Lug)
+    {
+        if(this != & Lug)
+        {
+            AJ_Id = Lug.AJ_Id;
+            Nom_D = Lug.Nom_D;
+             Codi_D= Lug.Codi_D;
+            Nom_B = Lug.Nom_B;
+            Codi_B = Lug.Codi_B;
+            Nom_V = Lug.Nom_V;
+            Codi_V = Lug.Codi_V;
+            Tipus_V = Lug.Tipus_V;
+            Num_P = Lug.Num_P;
+            Long = Lug.Long;
+            Lat = Lug.Lat;
+        }
+        return *this;
+    }
 
 };
 
@@ -192,14 +260,33 @@ class Parque
 {
 private:
 
-    ObjetoParque OBJ;
     Lugar LUG;
     VOP Obj;
+    vector<VStr> Vs;
+    VOP::iterator itVOP = Obj.begin();
+
 
                 ///METODES PRIVATS
 
-    Lugar getLUG()const {return LUG;}
-    ObjetoParque getVObj(int q)const {return Obj[q];}
+     void VectorizingLongLat(string Str, vector<VStr> & Vs) ///Vectoritza els String de Longitud o Latitud
+    {
+        VStr V;
+        string Num = "";
+        for(int x = 0; Str.size()>x; x++)
+        {
+            if(Str[x] == '.')
+            {
+            V.push_back(Num);
+            Num = "";
+            }
+            if(Str[x] != '.')
+            {
+                Num = Num+Str[x];
+            }
+        }
+        V.push_back(Num);
+        Vs.push_back(V);
+    }
 
 public:
 
@@ -211,13 +298,51 @@ public:
 
     void Insertar_En_Vector_Objeto(const ObjetoParque & OBJ)
     {
-        this -> OBJ = OBJ;
         Obj.push_back(OBJ);
     }
+
+    int ObjSize()const{return Obj.size();}
+
+    ObjetoParque getVObj(int q)const {return Obj[q];}
 
     void SetLUG(Lugar & LUG){this -> LUG = LUG;}
 
      void Clear(){Obj.clear();}
+
+     void SetVOP(int numerin,ObjetoParque & Obj){this -> Obj[numerin] = Obj;}
+
+     Lugar getLUG()const {return LUG;}
+
+     VOP GetVOP()const{return Obj;}
+
+     void ERASE( vector<ObjetoParque>::iterator & It){Obj.erase(It);}
+
+    int Converter(char S) ///Converteix Chars Numerics a Ints
+    {
+        int N;
+        vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
+        for(int x = 0; x<=Lista.size();x++)
+        {
+            if(S ==  Lista[x])
+            {
+                N = x;
+            }
+
+        }
+        return N;
+    }
+
+    void VLongLatCompletiser()
+    {
+
+        VectorizingLongLat(LUG.getLong(),Vs);
+        VectorizingLongLat(LUG.getLat(),Vs);
+
+    }
+
+    string geTvll(int q,int r)const {return Vs[q][r];}
+
+    void pushObj(ObjetoParque & ob){Obj.push_back(ob);}
 
                     ///OPERADOR COUT
 
@@ -230,6 +355,11 @@ public:
 
     return os;
     }
+
+    friend bool operator < (const Parque & PA, const Parque & PB)
+    {
+        return PA.getLUG().getAJ_Id() < PB.getLUG().getAJ_Id();
+    }
 };
 
 ///-----------------------------------------------> CLASSE GLOBAL
@@ -240,8 +370,6 @@ class Parques_Barna
 
     VOP Obj;
     VL Lug;
-    Lugar L;
-    ObjetoParque O;
     vector<Parque>VPS;
 
             ///METODES PRIVATS
@@ -261,6 +389,7 @@ class Parques_Barna
                     x++;
                 }
             }
+        P.VLongLatCompletiser();
         VPS.push_back(P);
         P.Clear();
         }
@@ -272,6 +401,10 @@ class Parques_Barna
 
     Parques_Barna(ifstream & Data)
     {
+
+        Lugar L;
+        ObjetoParque O;
+
         int AJ_Id , AJ_Edat_Id;
         string AJ_Edat ;
         string Codi /**Codi de l'objecte*/, Tipus /**Tipus d'objecte*/;
@@ -315,11 +448,222 @@ class Parques_Barna
             Obj.push_back(O);
         }
         Ordenar(VPS);
+        Sorting();
     }
 
 ///---------------------------------------------------------> METODES
 
     Parque getParque(int q)const {return VPS[q];}
+
+     int Converter(char S) ///Converteix Chars Numerics a Ints
+    {
+        int N;
+        vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
+        for(int x = 0; x<=Lista.size();x++)
+        {
+            if(S ==  Lista[x])
+            {
+                N = x;
+            }
+
+        }
+        return N;
+    }
+
+    void Sorting()
+    {
+        sort(VPS.begin(),VPS.end());
+    }
+
+    int Comparator(int Start,int Final,int Q)
+    {
+        while(Start <= Final){
+            int mid = (Start+Final)/2;
+            if(Q > VPS[mid].getLUG().getAJ_Id())
+            {
+                Start = mid + 1;
+            }
+            else if(Q < VPS[mid].getLUG().getAJ_Id())
+            {
+                Final = mid -1;
+            }
+            else
+            {
+                return mid;
+            }
+        }
+        return -1;
+    }
+
+   int Edit()
+    {
+        Sorting();
+        bool TotCorrecte = false, adv = false;
+        Lugar L;
+        ObjetoParque O;
+        vector<Parque>::iterator itVP = VPS.begin();
+
+        while(TotCorrecte == false)
+        {
+            system("Color E9");system("cls");
+            int Search,asc,numerin,Editor;
+            cout<<endl<<" Inserta el ID de l'area de Joc que vols editar: ";cin>>Search; Editor = Search;
+            Search = Comparator(0,VPS.size(),Search);
+            if(Search != -1)
+            {
+                    cout<<endl<<" - Editar la localitzacio (1)"<<endl<<endl<<" - Editar els objectes (2)"<<endl<<endl<<" - Surt de l'editor (3)"<<endl<<endl<<" ---> ";cin>>asc;;
+
+                    if(asc == 2)
+                        {
+                            system("cls");
+                            cout<<endl<<" Pots editar "<<VPS[Search].ObjSize()<<", inserta el seguent objecte que vulguis editar, o surt de l'editor d'objectes insertan cualsevol tecla: "<<endl<<endl<<" ---> ";cin>>numerin;
+                            if(numerin > VPS[Search].ObjSize() || numerin <= 0){system("Color E0");return 0;}
+                            else
+                            {
+                                numerin--;
+                                cout<<VPS[Search].getVObj(numerin)<<endl;
+                                cout<<" As escollit aquest objecte. "<<endl<<endl;
+                                if (adv == false){advance(itVP,Search);adv = true;}
+                                cin>>O;
+                                O.setAJ_Id(Editor);
+                                itVP->SetVOP(numerin,O);
+                            }
+                        }
+
+                    if(asc == 1)
+                    {
+                        system("cls");
+                        advance(itVP,Search);
+                        cout<<endl;cin>>L;
+                        L.setAJ_Id(Editor);
+                        itVP->SetLUG(L);
+                        cout<<endl<<" - Editar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2)"<<endl<<endl<<" ---> "; cin>>asc;
+                        if(asc == 1){Edit();}
+                        else {system("Color E0");system("cls");return 0;}
+                    }
+
+                    else if(asc == 3){system("Color E0");system("cls");return 0;}
+
+                    else {system("cls");cout<<endl<<" Inserta un valor correcte: "<<endl<<endl;}
+            }
+        }
+    }
+
+    void AddO(int numerin,int Editor, ObjetoParque & O,Parque & P)
+    {system("cls");
+        cout<<endl<<endl<<" Vols afegir un nou objecte: "<<endl<<endl<<" - Si (1)"<<endl<<endl<<" - No (2)"<<endl<<endl<<" ---> ";cin>>numerin;cout<<endl;
+                if(numerin == 1)
+                {
+                    cin>>O;
+                    O.setAJ_Id(Editor);
+                    P.pushObj(O);
+                    AddO(numerin,Editor,O,P);
+
+                }
+    }
+
+    int Add()
+    {
+        system("color EA");system("cls");
+        Lugar L;
+        ObjetoParque O;
+        Parque P;
+        int Editor = 0,numerin = 0;
+        bool correcte = true;
+        vector<Parque>::iterator itVP = VPS.begin();
+
+        cout<<endl<<" - Afegir un nou parc (1)"<<endl<<endl<<" - Afegir un nou objecte a un parc existent (2)"<<endl<<
+        endl<<" - Sortir de l'editor (3)"<<endl<<endl<<" ---> ";cin>>numerin;cout<<endl;
+
+        if(numerin == 1)
+        {
+            system("cls");
+            cout<<endl<<" Inserta la localitzacio del parc que vols afegir: "<<endl<<endl;cin>>L;
+            if(Comparator(0,VPS.size(),L.getAJ_Id()) == -1)
+            {
+                P.SetLUG(L);
+                Editor = P.getLUG().getAJ_Id();
+                AddO(numerin,Editor,O,P);
+                if(P.GetVOP().size()== 0){cout<<endl<<endl<<" !! Al no tenir cap objecte no s'ha guardat correctament !!"<<endl<<endl;}
+                VPS.insert(itVP,P);
+            }
+            Add();
+        }
+        else if(numerin == 2)
+        {
+            system("cls");
+            while(correcte == true)
+            {
+                cout<<endl<<" Inserta el ID de l'area de Joc que vols afegir un objecte: ";cin>>numerin;cout<<endl;Editor = numerin;
+                numerin = Comparator(0,VPS.size(),numerin);
+                if(numerin != -1)
+                {
+                    L = VPS[numerin].getLUG();
+                    P = VPS[numerin];
+                    AddO(numerin,Editor,O,P);
+                    advance(itVP,numerin);
+                    *itVP = P;
+                    correcte = false;
+                }
+                else{system("cls");cout<<endl<<" El valor insertat no existeix, torna a insertar un valor existent: "<<endl;}
+            }
+            Add();
+        }
+        system("cls");
+        system("Color E0");
+        return 0;
+    }
+
+    int Delete() /// MIRAR QUE FALLA
+    {
+        Sorting();
+        vector<Parque>::iterator itVP = VPS.begin();
+        vector<ObjetoParque>::iterator itVOP;
+        system ("cls");
+        system("Color E4");
+        int Search,asc;
+
+            cout<<endl<<" Inserta el ID de l'area de Joc que vols eliminar: ";cin>>Search;
+            Search = Comparator(0,VPS.size(),Search);
+            if(Search != -1)
+            {
+                cout<<endl<<" - Eliminar el parc (1) "<<endl<<endl<<" - Eliminar un objecte (2) "<<endl<<endl<<" - Sortir de l'editor (3)"<<endl<<endl;cin>>asc;
+                if(asc == 1)
+                {
+                    system ("cls");
+                    advance(itVP,Search);
+                    VPS.erase(itVP);
+                    Delete();
+                }
+                else if(asc == 2) ///NO FUNCIONA BIEN
+                {
+                    while(true)
+                    {
+
+                        system ("cls");
+                        cout<<endl<<" Pots eliminar "<<VPS[Search].ObjSize()<<", inserta el seguent objecte que vulguis eliminar, o surt de l'editor d'objectes insertan cualsevol tecla: "<<endl<<endl<<" ---> ";cin>>asc;
+                        if(asc > VPS[Search].ObjSize() || asc <= 0){system("cls");system("Color E0");return 0;}
+                        else
+                        {
+                            asc--;
+                            cout<<endl<<VPS[Search].getVObj(asc)<<endl;
+                            cout<<endl<<" As escollit aquest objecte. "<<endl<<endl;
+                            itVOP = VPS[Search].GetVOP().begin();
+                            advance(itVOP,asc);
+                            cout<<" ";
+                            VPS[Search].ERASE(itVOP);
+                            cout<<"- Eliminar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2) "<<endl<<endl;cin>>asc;
+                            if(asc == 2){system("cls");system("Color E0");return 0;}
+                        }
+                    }
+                }
+                else if(asc == 3){system("Color E0");system("cls");return 0;}
+            }
+            else
+            {
+                cout<<endl<<"El valor insertat no existeix, torna a insertar un valor existent: "<<endl;
+            }
+    }
 
                         ///OPERADOR COUT
 
@@ -332,48 +676,29 @@ class Parques_Barna
     }
 };
 
-///------------------------------------------------------------> FUNCIONS
-
-int Converter(char S) ///Converteix Chars Numerics a Ints
-{
-    int N;
-    vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
-    for(int x = 0; x<=Lista.size();x++)
-    {
-        if(S ==  Lista[x])
-        {
-            N = x;
-        }
-
-    }
-    return N;
-}
-
-void VectorizingLongLat(string Str, VStr & V) ///Vectoritza els String de Longitud o Latitud
-{
-    string Num = "";
-    for(int x = 0; Str.size()>x; x++)
-    {
-        if(Str[x] == '.')
-        {
-        V.push_back(Num);
-        Num = "";
-        }
-        if(Str[x] != '.')
-        {
-            Num = Num+Str[x];
-        }
-    }
-    V.push_back(Num);
-}
-
 ///-------------------------------------------------> MAIN
 
 int main()
 {
+    system("color E0");
+    bool t = true;
     ifstream Data("DATA.txt");
     Parques_Barna P(Data);
-    cout<<P.getParque(475);
-    cout<<P.getParque(890);
-    cout<<P.getParque(5);
+    char esc;
+    while(t == true)
+    {
+        cout<<" - SEARCH (a)"<<endl<<endl;
+        cout<<" - ADD/EDIT/DELET (b)"<<endl<<endl;
+        cout<<" - DELETE (c)"<<endl<<endl;cin>>esc;
+        if(esc == 'b')
+        {
+            P.Add();
+        }
+        if(esc == 'a')
+        {
+            P.Edit();
+        }
+        if(esc == 'c')
+            P.Delete();
+    }
 }
