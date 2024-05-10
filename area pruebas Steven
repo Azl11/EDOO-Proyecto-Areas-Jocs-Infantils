@@ -22,5 +22,25 @@ int SearchLugar(int searchId) {
             if (Lug[i].getAJ_Id() == searchId) {
                 return i; 
             } }
-        return -1; 
+----------------------------clase lugar con sus nuevas funcionalidades
+
+ bool operator==(const Lugar& otro) const {    //compara id de lugares 
+
+        return this->AJ_Id == otro.AJ_Id;}
+
+    void editarLugar(const Lugar& nuevoLugar) {       //para editar el lugar 
+
+        this->Codi_V = nuevoLugar.Codi_V;
+        this->Codi_D = nuevoLugar.Codi_D;
+        this->Codi_B = nuevoLugar.Codi_B;
+        this->Num_P = nuevoLugar.Num_P;
+        this->Nom_V = nuevoLugar.Nom_V;
+        this->Nom_D = nuevoLugar.Nom_D;
+        this->Nom_B = nuevoLugar.Nom_B;
+        this->Tipus_V = nuevoLugar.Tipus_V;
+        this->Long = nuevoLugar.Long;
+        this->Lat = nuevoLugar.Lat;
     }
+
+        
+    
