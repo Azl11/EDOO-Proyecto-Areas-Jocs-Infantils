@@ -42,5 +42,34 @@ int SearchLugar(int searchId) {
         this->Lat = nuevoLugar.Lat;
     }
 
+
+
+--------------------------------- menu del lugar y para consultar sus funciones
+
+
+        void mostrarMenuLugar() {
+        
+        int opcion;
+            cout << "Menú de clase lugar :" << endl;
+            cout << "1. Mostrar información del lugar" << endl;
+            cout << "2. Editar información del lugar" << endl;
+            cout << "3. Salir" << endl;
+            cout << "Seleccione una opción: ";
+        
+        cin >> opcion;
+                switch (opcion) {
+                    case 1:
+                        cout<< ;
+                        break;
+                    case 2:
+                        editarInformacion(lugar);
+                        break;
+                    case 3:
+                        cout << "Saliendo del programa." << endl;
+                        break;
+                    default:
+                        cout << "Opción no válida. Inténtelo de nuevo." << endl
+        }
+
         
     
