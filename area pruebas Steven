@@ -1,1 +1,26 @@
 aqui ire poniendo cositas mientras hago lo mio
+
+// funcion para bucar  lugar con id
+
+--------------------la función 
+int Search() {         
+        int searchId;
+        cout << "Inserta el ID del lugar que quieres buscar: ";
+        cin >> searchId;
+        int index = SearchLugar(searchId);
+        if (index != -1) {
+            cout << "Lugar encontrado: " << endl;
+            cout << Lug[index]; 
+        } else {
+            cout << "El lugar con el ID " << searchId << " no fue encontrado." << endl;
+        }
+        return index;
+    }
+----------------------- el subprograma SearchLugar
+int SearchLugar(int searchId) {
+        for (int i = 0; i < Lug.size(); ++i) {
+            if (Lug[i].getAJ_Id() == searchId) {
+                return i; 
+            } }
+        return -1; 
+    }
