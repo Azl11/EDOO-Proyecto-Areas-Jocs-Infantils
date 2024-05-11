@@ -5,163 +5,27 @@
 #include<algorithm>
 
 using namespace std;
-//Classe Data
-class Data{
 
-    int dia, mes, any;
-
-    //Comprovar si la data pertany a un any bissest. Mètode privat. S'utilitza només en la classe
-    //Hi ha un altre mètode public amb el mateix nom però sense el paràmetre any.
-    bool de_traspas(int any) {
-        return ((any % 4 == 0 && any % 100 != 0) or any%400 == 0);
-    }
-
-    //Consultar dies d'un mes i any donats. Mètode privat. S'utilitza només en la classe
-    int dias_mes(int mes, int any) {
-        int dies = 31;
-        if (mes == 4 or mes == 6 or mes == 9 or mes == 11) {
-            dies = 30;
-        }
-        else if (mes == 2) {
-            if (de_traspas(any) == true) {
-                dies = 29;
-            }
-            else {
-                dies = 28;
-            }
-        }
-        return dies;
-    }
-
-public:
-
-    //Constructor per defecte amb la data actual, que dóna el sistema, llibreria time.h
-    Data(){
-        time_t t; //time_t és una tupla de temps (dia, mes any, hora, mins, segs) definit en time.h
-        time( &t );
-        struct tm* info = localtime( &t );
-        dia = info -> tm_mday;
-        mes = info -> tm_mon + 1;
-        any = 1900+ info -> tm_year; // l'any es comença a comptar a partir del 1900
-    }
-
-    //Constructor amb tres paràmetres enters
-    Data(int d, int m, int a){
-        dia=d;
-        mes=m;
-        any=a;
-    }
-
-    //Constructor amb un paràmetre enter ddmmaaaa
-    Data(int ddmmaaaa){
-        dia=ddmmaaaa/1000000;
-        mes=(ddmmaaaa/10000)%100;
-        any=ddmmaaaa%10000;
-    }
-
-    //Constructor amb un paràmetre string en format dd:mm:aaaa o dd-mm-aaaa
-    //stoi és una funció per converir un string (p.ex "12") en un enter (p.ex. 12)
-    Data(string sd){
-        string c1 = sd.substr (0,2);//el string dels caràcters dd
-        dia=stoi(c1);
-        string c2 = sd.substr (3,2);//el string dels caràcters mm
-        mes=stoi(c2);
-        string c3 = sd.substr (6); //el substring de la 6à posició fins al final
-        any=stoi(c3);
-    }
-
-    //Mètodes consultors
-    int getDia(){
-        return dia;
-    }
-    int getMes(){
-        return mes;
-    }
-    int getAny(){
-        return any;
-    }
-
-    //Comprovar si la data que s'està construïnt es d'un any de traspàs
-    bool de_traspas() {
-        return ((any % 4 == 0 && any % 100 != 0) or any%400 == 0);
-    }
-
-    //Mètodes modificadors. Se suposa que d, m i a són vàlids
-    void setDia (int d){
-        dia=d;
-    }
-    void setMes (int m){
-        mes=m;
-    }
-    void setAny (int a){
-        any=a;
-    }
-
-    //Incrementar la data amb una quantitat de dies
-    void incrementaData (int dd){
-        dia=dia+dd;
-        if (dia > dias_mes(mes, any)) {
-            dia = dia-dias_mes(mes,any);
-            mes++;
-            if (mes > 12) {
-                mes = 1;
-                any++;
-            }
-        }
-    }
-
-    //Comparar dues dates <
-    friend bool operator < (Data& d1, Data& d2)
-    {
-        return (d1.any*10000+d1.mes*100+d1.dia < d2.any*10000+d2.mes*100+d2.dia);
-    }
-
-    //Comparar dues dates ==
-    friend bool operator == (Data& d1, Data& d2)
-    {
-        return (d1.any*10000+d1.mes*100+d1.dia == d2.any*10000+d2.mes*100+d2.dia);
-    }
-
-
-    //Escriure una data per canal de sortida dd/mm/aaaa
-   friend ostream& operator << (ostream& os, Data d)
-    {
-        os << "Data: ";
-        if (d.dia < 10){
-            os << "0";
-        }
-        os << d.dia <<"/";
-
-        if (d.mes < 10){
-            os << "0";
-        }
-        os<< d.mes << "/" << d.any<<endl;
-
-        return os;
-    }
-
-};
 typedef vector<string> VStr;
 
 ///-----------------------------------> CLASSE
 
 class ObjetoParque
-{ 
+{
     private:
 
     int AJ_Id , AJ_Edat_Id; //Area de Joc Id , Area de Joc M2 , Area de Joc Edat Id
     string AJ_Edat ; //Area de Joc Edat
     string Codi , Tipus; //Codi , Tipus d'objecte
     double AJ_M2;
-    vector<int> v_AJ_Id;
-    vector<int> v_AJ_Edat_Id;
+
     public:
 
 ///--------------------------------> CONSTRUCTORS
 
     ObjetoParque(){}
 
-    ObjetoParque(int AJ_Id , double AJ_M2 , int AJ_Edat_Id, string AJ_Edat , string Codi , string Tipus, int v_AJ_Edat_Id, int v_AJ_Id)
+    ObjetoParque(int AJ_Id , double AJ_M2 , int AJ_Edat_Id, string AJ_Edat , string Codi , string Tipus)
     {
     this -> AJ_Id = AJ_Id;
     this -> AJ_M2 = AJ_M2;
@@ -169,8 +33,6 @@ class ObjetoParque
     this -> AJ_Edat = AJ_Edat;
     this -> Codi = Codi;
     this -> Tipus = Tipus;
-    this-> v_AJ_Id = v_AJ_Id;
-    this-> v_AJ_Edat_Id = v_AJ_Edat_Id;
     }
 
                 ///CONSTRUCTOR CÒPIA
@@ -183,8 +45,6 @@ class ObjetoParque
     AJ_Edat = Obj.AJ_Edat;
     Codi = Obj.Codi;
     Tipus = Obj.Tipus;
-    v_AJ_Id = Obj.v_AJ_Id;
-    v_AJ_Edat_Id = Obj.v_AJ_Edat_Id;
     }
 
 ///---------------------------------------------------> METODES
@@ -211,16 +71,43 @@ class ObjetoParque
 
 friend ostream & operator <<(ostream & os , const ObjetoParque & Obj)
 {
-    os<<"-------------------------------"<<endl;
-    os<<"Area de Jocs ID: "<< Obj.AJ_Id<<endl;
-    os<<"Area de Jocs M2: "<< Obj.AJ_M2<<endl;
-    os<<"Area de Jocs Edat ID: "<< Obj.AJ_Edat_Id<<endl;
-    os<<"Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
-    os<<"Codi: "<< Obj.Codi<< endl;
-    os<<"Tipus: "<< Obj.Tipus<< endl;
+    os<<" -------------------------------"<<endl;
+    os<<" Area de Jocs ID: "<< Obj.AJ_Id<<endl;
+    os<<" Area de Jocs M2: "<< Obj.AJ_M2<<endl;
+    os<<" Area de Jocs Edat ID: "<< Obj.AJ_Edat_Id<<endl;
+    os<<" Area de Jocs Edat: "<< Obj.AJ_Edat<<endl;
+    os<<" Codi: "<< Obj.Codi<< endl;
+    os<<" Tipus: "<< Obj.Tipus<< endl;
 
     return os;
 }
+
+                    ///OPERATOR CIN
+
+friend istream & operator>>(istream & is, ObjetoParque & Obj)
+{
+    cout<<" - Area de Jocs ID: "; is>>Obj.AJ_Id;
+    cout<<" - Area de Jocs M2: "; is>>Obj.AJ_M2;
+    cout<<" - Area de Jocs Edat ID: "; is>>Obj.AJ_Edat_Id;
+    cout<<" - Area de Jocs Edat: "; is>>Obj.AJ_Edat;
+    cout<<" - Codi: "; is>>Obj.Codi;
+    cout<<" - Tipus: "; is>>Obj.Tipus;
+
+    return is;
+}
+    ObjetoParque & operator = (const ObjetoParque & Obj)
+    {
+        if(this != & Obj)
+        {
+            AJ_Id = Obj.AJ_Id;
+            AJ_M2 = Obj.AJ_M2;
+            AJ_Edat_Id = Obj.AJ_Edat_Id;
+            AJ_Edat = Obj.AJ_Edat;
+            Codi = Obj.Codi;
+            Tipus = Obj.Tipus;
+        }
+        return *this;
+    }
 
 };
 
@@ -235,8 +122,9 @@ class Lugar
   int  Codi_V , Codi_D , Codi_B , AJ_Id ; //Codi Via , Codi Districte , Codi Barri
   string Nom_V , Nom_D , Nom_B ; //Nom Via , Nom Districte , Nom Barri
   string Tipus_V; //Tipus Via
-  int Num_P; //Numero Postal
-  string Long , Lat; //Longitud  Latitud
+  int Num_P,SPVC; //Numero Postal
+  string Long , Lat ,X9,Y9,SPVN; //Longitud  Latitud
+
 
   public:
 
@@ -281,12 +169,16 @@ int getCodi_V()const {return Codi_V;}
 int getCodi_D()const {return Codi_D;}
 int getCodi_B()const {return Codi_B;}
 int getNum_P()const {return Num_P;}
+int getSPVC()const {return SPVC;}
 string getNom_V()const {return Nom_V;}
 string getNom_D()const {return Nom_D;}
 string getNom_B()const {return Nom_B;}
 string getTipus_V()const {return Tipus_V;}
 string getLong()const  {return Long;}
 string getLat()const  {return Lat;}
+string getX9()const {return X9;}
+string getY9 ()const {return Y9;}
+string getSPVN () const {return SPVN;}
 
                 ///METODES SET
 
@@ -301,6 +193,10 @@ void setNom_B(string Nom_B){ this -> Nom_B=Nom_B;}
 void setTipus_V(string Tipus_V){this -> Tipus_V=Tipus_V;}
 void setLong(string Long){this -> Long = Long;}
 void setLat(string Lat){this -> Lat = Lat;}
+void setX9(string X9){this -> X9 = X9;}
+void setY9(string Y9){this -> Y9 = Y9;}
+void setSPVC(int SPVC){this -> SPVC = SPVC;}
+void setSPVN(string SPVN){this -> SPVN = SPVN;}
 
                 ///OPERADOR COUT
 
@@ -375,8 +271,8 @@ private:
 
     Lugar LUG;
     VOP Obj;
-    vector<VStr> Vs;
-    VOP::iterator itVOP = Obj.begin();
+    //vector<VStr> Vs;
+    //VOP::iterator itVOP = Obj.begin();
 
 
                 ///METODES PRIVATS
@@ -445,16 +341,6 @@ public:
         return N;
     }
 
-    void VLongLatCompletiser()
-    {
-
-        VectorizingLongLat(LUG.getLong(),Vs);
-        VectorizingLongLat(LUG.getLat(),Vs);
-
-    }
-
-    string geTvll(int q,int r)const {return Vs[q][r];}
-
     void pushObj(ObjetoParque & ob){Obj.push_back(ob);}
 
                     ///OPERADOR COUT
@@ -471,8 +357,35 @@ public:
 
     friend bool operator < (const Parque & PA, const Parque & PB)
     {
-        return PA.getLUG().getAJ_Id() < PB.getLUG().getAJ_Id();
+        if(PA.getLUG().getAJ_Id() != PB.getLUG().getAJ_Id())
+        {
+            return PA.getLUG().getAJ_Id() < PB.getLUG().getAJ_Id();
+        }
+
+        if(PA.getLUG().getNom_B() != PB.getLUG().getNom_B())
+        {
+            return PA.getLUG().getNom_B() < PB.getLUG().getNom_B();
+        }
+
+        if(PA.getLUG().getNom_D() != PB.getLUG().getNom_D())
+        {
+            return PA.getLUG().getNom_D() < PB.getLUG().getNom_D();
+        }
+
+        if(PA.getLUG().getNum_P() != PB.getLUG().getNum_P())
+        {
+            return PA.getLUG().getNum_P() < PB.getLUG().getNum_P();
+        }
+
+        if(PA.getVObj(0).getAJ_Edat() != PB.getVObj(0).getAJ_Edat())
+        {
+            return PA.getVObj(0).getAJ_Edat() < PB.getVObj(0).getAJ_Edat();
+        }
+
     }
+
+
+
 };
 
 ///-----------------------------------------------> CLASSE GLOBAL
@@ -502,7 +415,7 @@ class Parques_Barna
                     x++;
                 }
             }
-        P.VLongLatCompletiser();
+        //P.VLongLatCompletiser();
         VPS.push_back(P);
         P.Clear();
         }
@@ -545,6 +458,10 @@ class Parques_Barna
             L.setNom_V(Nom_V);
             L.setNom_D(Nom_D);
             L.setNom_B(Nom_B);
+            L.setX9(x_etrs89);
+            L.setY9(y_etrs89);
+            L.setSPVC(SPVC);
+            L.setSPVN(SPVN);
 
             if(L.getAJ_Id() != O.getAJ_Id())
                 {
@@ -606,6 +523,25 @@ class Parques_Barna
             }
         }
         return -1;
+    }
+
+    void Save_File()
+    {
+        ofstream Datout("DATA_PARQUES_BARNA_SAFE.txt");
+        for(int i = 0; i < VPS.size();i++)
+        {
+            for(int j = 0; j < VPS[i].GetVOP().size();j++)
+            {
+                Datout<<" "<<VPS[i].getVObj(j).getCodi()<<" "<<VPS[i].getLUG().getAJ_Id()<<" "<<VPS[i].getVObj(j).getTipus()
+                <<" "<<VPS[i].getVObj(j).getAJ_M2()<<" "<<VPS[i].getVObj(j).getAJ_Edat_Id()<<" "<<VPS[i].getVObj(j).getAJ_Edat()
+                <<" "<<VPS[i].getLUG().getCodi_V()<<" "<<VPS[i].getLUG().getTipus_V()<<" "<<VPS[i].getLUG().getNom_V()
+                <<" "<<VPS[i].getLUG().getNum_P()<<" "<<VPS[i].getLUG().getCodi_D()<<" "<<VPS[i].getLUG().getNom_D()
+                <<" "<<VPS[i].getLUG().getCodi_B()<<" "<<VPS[i].getLUG().getNom_B()<<" "<<VPS[i].getLUG().getX9()
+                <<" "<<VPS[i].getLUG().getY9()<<" "<<VPS[i].getLUG().getLong()<<" "<<VPS[i].getLUG().getLat()
+                <<" "<<VPS[i].getLUG().getSPVC()<<" "<<VPS[i].getLUG().getSPVN()<<endl;
+            }
+        }
+
     }
 
    int Edit()
@@ -727,7 +663,7 @@ class Parques_Barna
         return 0;
     }
 
-    int Delete() /// MIRAR QUE FALLA
+    int Delete()
     {
         Sorting();
         vector<Parque>::iterator itVP = VPS.begin();
@@ -748,7 +684,7 @@ class Parques_Barna
                     VPS.erase(itVP);
                     Delete();
                 }
-                else if(asc == 2) ///NO FUNCIONA BIEN
+                else if(asc == 2)
                 {
                     while(true)
                     {
@@ -765,7 +701,7 @@ class Parques_Barna
                             advance(itVOP,asc);
                             cout<<" ";
                             VPS[Search].ERASE(itVOP);
-                            cout<<"- Eliminar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2) "<<endl<<endl;cin>>asc;
+                            cout<<" - Eliminar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2) "<<endl<<endl;cin>>asc;
                             if(asc == 2){system("cls");system("Color E0");return 0;}
                         }
                     }
@@ -774,9 +710,169 @@ class Parques_Barna
             }
             else
             {
-                cout<<endl<<"El valor insertat no existeix, torna a insertar un valor existent: "<<endl;
+                cout<<endl<<" El valor insertat no existeix, torna a insertar un valor existent: "<<endl;
             }
     }
+
+ void buscarPorIDLugar() {
+
+
+ int id,Buscador,aux;
+ Sorting();
+system("Color E9");system("cls");
+
+        cout << " Introduce el ID del lugar: ";
+        cin >>id;
+        Buscador=Comparator(0,VPS.size(),id);
+
+
+   if(Buscador != -1)
+            {
+                cout << " Los datos del lugar con ID " << id << " son los siguientes: " << endl;
+                  cout<<VPS[Buscador]<<endl;}
+
+            else {
+        cout << " No se encontro ningun lugar con el ID especificado." << endl;
+    }
+}
+
+ void BuscarPorDistrito() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1;
+    string nDistrito;
+    bool encontrado=false;
+    cout << " Introduce el nombre del distrito para ver los parques que hay: " << endl;
+    cout << " Ejemplo: Sant_Marti" << endl;
+    cin >> nDistrito;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (nDistrito == VPS[i].getLUG().getNom_D()) {
+
+            cout << " ID del parque num "<<u<<" en el distrito _ " << VPS[i].getLUG().getAJ_Id() << endl;
+            u++;
+             aux++;
+
+        }
+
+        }
+
+        cout<<" hay un total de "<<aux<<" parques!!!!"<<endl;
+    }
+
+
+ void BuscarPorBarrio() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1;
+    string nBarrio;
+    bool encontrado=false;
+    cout << " Introduce el nombre del barrio para ver los parques que hay: " << endl;
+    cout << " Ejemplo: la_Verneda_i_la_Pau" << endl;
+    cin >> nBarrio;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (nBarrio == VPS[i].getLUG().getNom_B()) {
+
+            cout << " ID del parque num "<<u<<" en el barrio " << VPS[i].getLUG().getAJ_Id() << endl;
+            u++;
+             aux++;
+
+        }
+
+        }
+
+        cout<<" hay un total de "<<aux<<" parques!!!!"<<endl;
+    }
+
+    void BuscarPorCP() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1,CP;
+    string nDistrito;
+    bool encontrado=false;
+    cout << " Introduce el codigo postal para ver los parques que hay: " << endl;
+    cin >> CP;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (CP == VPS[i].getLUG().getNum_P()) {
+
+            cout << " ID del parque num "<<u<<" con codigo postal :" << VPS[i].getLUG().getAJ_Id() << endl;
+            u++;
+             aux++;
+
+        }
+
+        }
+}
+
+void BuscarPorEdad() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux = 0, u = 1, opcion;
+    string nDistrito;
+    bool encontrado = false;
+    cout << endl;
+    cout << " Ver la ID de los parques que hay por franja de edad " << endl;
+    cout << endl;
+    cout << " (1) FINS_A_5_ANYS  " << endl;
+    cout << endl;
+    cout << " (2) DE_6_A_12_ANYS " << endl;
+    cout << endl;
+    cout << " (3) MIXTA " << endl;
+    cout << endl;
+    cin >> opcion;
+
+    switch (opcion) {
+        case 1: {
+            string uno = " FINS_A_5_ANYS";
+            for (int i = 0; i < VPS.size(); i++) {
+                if (uno == VPS[i].getVObj(0).getAJ_Edat()) {
+                    cout << " ID del objeto num " << u << " de franja de edad " << uno << " " << VPS[i].getLUG().getAJ_Id() << endl;
+                    u++;
+                    aux++;
+                }
+            }
+            cout << " hay un total de " << aux << " objetos!!!!" << endl;
+            break;
+        }
+        case 2: {
+            string dos = " DE_6_A_12_ANYS";
+            for (int i = 0; i < VPS.size(); i++) {
+                if (dos == VPS[i].getVObj(0).getAJ_Edat()) {
+                    cout << " ID del objeto num " << u << " de franja de edad " << dos << " " << VPS[i].getLUG().getAJ_Id() << endl;
+                    u++;
+                    aux++;
+                }
+            }
+            cout << " hay un total de " << aux << " objetos!!!!" << endl;
+            break;
+        }
+        case 3: {
+            string tres = " MIXTA";
+            for (int i = 0; i < VPS.size(); i++) {
+                if (tres == VPS[i].getVObj(0).getAJ_Edat()) {
+                    cout << " ID del objeto num " << u << " de franja de edad " << tres << " " << VPS[i].getLUG().getAJ_Id() << endl;
+                    u++;
+                    aux++;
+                }
+            }
+            cout << " hay un total de " << aux << " objetos!!!!" << endl;
+            break;
+        }
+        default:
+            cout << " Opción no válida." << endl;
+            break;
+    }
+}
+
 
                         ///OPERADOR COUT
 
@@ -791,27 +887,158 @@ class Parques_Barna
 
 ///-------------------------------------------------> MAIN
 
+
 int main()
 {
     system("color E0");
-    bool t = true;
+
+    bool t = true, y = true;
+    int x,j;
+
     ifstream Data("DATA.txt");
     Parques_Barna P(Data);
-    char esc;
-    while(t == true)
+
+    while(t)
     {
-        cout<<" - SEARCH (a)"<<endl<<endl;
-        cout<<" - ADD/EDIT/DELET (b)"<<endl<<endl;
-        cout<<" - DELETE (c)"<<endl<<endl;cin>>esc;
-        if(esc == 'b')
+        system("cls");
+        y = true;
+        cout<<endl;
+        cout<<" |-------------------------------------------------------------------------|"<<endl;
+        cout<<" Escull una opcio valida:\n" <<endl;
+        cout<<" (1): Consultar informacio parc \n"<<endl;
+        cout<<" (2):Modificar Informacio parc \n"<<endl;
+        cout<<" (3):Eliminar Parc/Objecte \n"<<endl;
+        cout<<" (4):Afegir Parc/Objecte \n"<<endl;
+        cout<<" (5):Guardar \n"<<endl;
+        cout<<" (6):Sortir del programa \n"<<endl;
+        cout<<" |-------------------------------------------------------------------------|"<<endl<<endl;
+        cout<<" ";cin>> x;
+
+        switch (x)
         {
-            P.Add();
-        }
-        if(esc == 'a')
-        {
+        case 1:
+            while(y){
+                    system("cls");
+                int z;
+                system("cls");
+                cout<<endl;
+                cout<<" |-------------------------------------------------------------------------|"<<endl;
+                cout<<" Escull una opcio valida:\n" <<endl;
+                cout<<" (1):Busqueda per ID \n"<<endl;
+                cout<<" (2):Busqueda per Nom del Barri \n"<<endl;
+                cout<<" (3):Busqueda per Nom del Districte \n"<<endl;
+                cout<<" (4):Busqueda per Codi Postal \n"<<endl;
+                cout<<" (5):Busqueda per Edat \n"<<endl;
+                cout<<" (6):Tornar enrera \n"<<endl;
+                cout<<" |-------------------------------------------------------------------------|"<<endl<<endl;
+                cout<<" ";cin>> j;
+                switch(j)
+                {
+                case 1:
+                    P.buscarPorIDLugar();
+                    cout<<" (1) Tornar a buscar: "<<endl<<endl;
+                    cout<<" (2) Tornar enrera: "<<endl<<endl;
+                    cin>>x;
+                    switch(z)
+                    {
+                    case 1:
+                    P.buscarPorIDLugar();
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    }
+                    break;
+                case 2:
+                    P.BuscarPorBarrio();
+                    cout<<" (1) Tornar a buscar: "<<endl<<endl;
+                    cout<<" (2) Tornar enrera: "<<endl<<endl;
+                    cin>>x;
+                    switch(z)
+                    {
+                    case 1:
+                    P.BuscarPorBarrio();
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    }
+                    break;
+                case 3:
+                    P.BuscarPorDistrito();
+                    cout<<" (1) Tornar a buscar: "<<endl<<endl;
+                    cout<<" (2) Tornar enrera: "<<endl<<endl;
+                    cin>>x;
+                    switch(z)
+                    {
+                    case 1:
+                    P.BuscarPorDistrito();
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    }
+                    break;
+                case 4:
+                    P.BuscarPorCP();
+                    int x;
+                    cout<<" (1) Tornar a buscar: "<<endl<<endl;
+                    cout<<" (2) Tornar enrera: "<<endl<<endl;
+                    cin>>x;
+                    switch(z)
+                    {
+                    case 1:
+                    P.BuscarPorCP();
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    }
+                    break;
+                case 5:
+                    P.BuscarPorEdad();
+                    cout<<" (1) Tornar a buscar: "<<endl<<endl;
+                    cout<<" (2) Tornar enrera: "<<endl<<endl;
+                    cin>>x;
+                    switch(z)
+                    {
+                    case 1:
+                    P.BuscarPorEdad();
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    }
+                    break;
+                case 6:
+                    system("cls");
+                    main();
+                default:
+                    y = false;
+                }
+            }
+            break;
+        case 2:
             P.Edit();
-        }
-        if(esc == 'c')
+            break;
+        case 3:
             P.Delete();
+            break;
+        case 4:
+            P.Add();
+            break;
+        case 5:
+            P.Save_File();
+            system("cls");
+            break;
+        case 6:
+            y = false;
+            t = false;
+            return 0;
+            break;
+        default:
+            main();
+            break;
+        }
     }
 }
