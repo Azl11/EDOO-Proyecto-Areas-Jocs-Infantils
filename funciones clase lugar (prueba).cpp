@@ -102,7 +102,7 @@ system("Color E9");system("cls");
 }
 
 
-void BuscarPorDistrito() {
+ void BuscarPorDistrito() {
     system("Color E9");
     system("cls");
     Sorting();
@@ -117,7 +117,7 @@ void BuscarPorDistrito() {
 
         if (nDistrito == VPS[i].getLUG().getNom_D()) {
 
-            cout << "ID del parque num "<<u<<" en el distrito " << VPS[i].getLUG().getAJ_Id() << endl;
+            cout << "ID del parque num "<<u<<" en el distrito _ " << VPS[i].getLUG().getAJ_Id() << endl;
             u++;
              aux++;
 
@@ -127,9 +127,6 @@ void BuscarPorDistrito() {
 
         cout<<" hay un total de "<<aux<<" parques!!!!"<<endl;
     }
-
-    
-}
 
 
  void BuscarPorBarrio() {
