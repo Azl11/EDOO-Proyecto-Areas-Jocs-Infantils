@@ -256,6 +256,55 @@ void menuPrincipal(const Parques_Barna &PB) {
     }
 }
 
+void BuscarPorCP() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1,CP;
+    string nDistrito;
+    bool encontrado=false;
+    cout << "Introduce el codigo postal para ver los parques que hay: " << endl;
+    cout << "Ejemplo: 28" << endl;
+    cin >> CP;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (CP == VPS[i].getLUG().getNum_P()) {
+
+            cout << "ID del parque num "<<u<<" con codigo postal -" << VPS[i].getLUG().getNum_P() << endl;
+            u++;
+             aux++;
+
+        }
+
+        }
+}
+
+void BuscarPorCP() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1,CP;
+    string nDistrito;
+    bool encontrado=false;
+    cout << "Introduce el codigo postal para ver los parques que hay: " << endl;
+    cout << "Ejemplo: 28" << endl;
+    cin >> CP;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (CP == VPS[i].getLUG().getNum_P()) {
+
+            cout << "ID del parque num "<<u<<" con codigo postal :" << VPS[i].getLUG().getAJ_Id() << endl;
+            u++;
+             aux++;
+
+        }
+
+        }
+}
+
+
 
 int main() {
     ifstream Data("DATA.txt");
