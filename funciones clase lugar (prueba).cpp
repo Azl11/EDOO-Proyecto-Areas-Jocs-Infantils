@@ -102,10 +102,32 @@ system("Color E9");system("cls");
 }
 
 
-void buscarPorDistrito(const Parques_Barna &PB) {
-    string distrito;
-    cout << "Introduce el nombre del distrito: ";
-    cin >> distrito;
+void BuscarPorDistrito() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1;
+    string nDistrito;
+    bool encontrado=false;
+    cout << "Introduce el nombre del distrito para ver los parques que hay: " << endl;
+    cout << "Ejemplo: Sant_Marti" << endl;
+    cin >> nDistrito;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (nDistrito == VPS[i].getLUG().getNom_D()) {
+
+            cout << "ID del parque num "<<u<<" en el distrito " << VPS[i].getLUG().getAJ_Id() << endl;
+            u++;
+             aux++;
+
+        }
+
+        }
+
+        cout<<" hay un total de "<<aux<<" parques!!!!"<<endl;
+    }
+
     
 }
 
