@@ -75,91 +75,117 @@ cin >> opcion;
 ------------------------------------------------------
 
 
-   void Parques_Barna::editarLugar(int id) {
-    int index = -1;
-    for (int i = 0; i < Lug.size(); ++i) {
-        if (Lug[i].getAJ_Id() == id) {
-            index = i;
-            break;
+
+ void buscarPorIDLugar() {
+
+
+ int id,Buscador,aux;
+system("Color E9");system("cls");
+
+        cout << "Introduce el ID del lugar: ";
+        cin >>id;
+        Buscador=Comparator(0,VPS.size(),id);
+
+
+   if(Buscador != -1)
+            {
+                cout << "Los datos del lugar con ID " << id << " son los siguientes: " << endl;
+                  cout<<VPS[Buscador]<<endl;}
+
+            else {
+        cout << "No se encontro ningun lugar con el ID especificado." << endl;
+    }
+                        
+                        
+                        
+    
+}
+
+
+void buscarPorDistrito(const Parques_Barna &PB) {
+    string distrito;
+    cout << "Introduce el nombre del distrito: ";
+    cin >> distrito;
+    
+}
+
+
+ void BuscarPorBarrio() {
+    system("Color E9");
+    system("cls");
+    Sorting();
+    int aux=0,u=1;
+    string nBarrio;
+    bool encontrado=false;
+    cout << "Introduce el nombre del barrio para ver los parques que hay: " << endl;
+    cout << "Ejemplo: la_Verneda_i_la_Pau" << endl;
+    cin >> nBarrio;
+
+    for (int i = 0; i < VPS.size(); i++) {
+
+        if (nBarrio == VPS[i].getLUG().getNom_B()) {
+
+            cout << "ID del parque num "<<u<<" en el barrio " << VPS[i].getLUG().getAJ_Id() << endl;
+            u++;
+             aux++;
+
         }
+
+        }
+
+        cout<<" hay un total de "<<aux<<" parques!!!!"<<endl;
     }
 
-    if (index != -1) {
-        editarLugar(Lug[index]);
-    } else {
-        cout << "No se encontró ningún lugar con el ID especificado." << endl;
+
+
+void buscarPorEdad(const Parques_Barna &PB) {
+    int edad;
+    cout << "Introduce la edad: ";
+    cin >> edad;
+   
+}
+
+
+void menuPrincipal(const Parques_Barna &PB) {
+    char opcion;
+    while (true) {
+        cout << "Menú Principal" << endl;
+        cout << "1. Buscar por ID de lugar" << endl;
+        cout << "2. Buscar por distrito" << endl;
+        cout << "3. Buscar por barrio" << endl;
+        cout << "4. Buscar por edad" << endl;
+        cout << "5. Salir" << endl;
+        cout << "Elige una opción: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case '1':
+                buscarPorIDLugar(PB);
+                break;
+            case '2':
+                buscarPorDistrito(PB);
+                break;
+            case '3':
+                buscarPorBarrio(PB);
+                break;
+            case '4':
+                buscarPorEdad(PB);
+                break;
+            case '5':
+                cout << "Saliendo..." << endl;
+                return;
+            default:
+                cout << "Opción inválida. Inténtalo de nuevo." << endl;
+        }
     }
 }
 
-void editarLugar(Lugar &lugar) {
-    int opcion;
-    cout << "¿Qué atributo desea editar?" << endl;
-    cout << "1. Código de la vía" << endl;
-    cout << "2. Código del distrito" << endl;
-    cout << "3. Código del barrio" << endl;
-    cout << "4. Número postal" << endl;
-    cout << "5. Nombre de la vía" << endl;
-    cout << "6. Tipo de vía" << endl;
-    cout << "7. Longitud" << endl;
-    cout << "8. Latitud" << endl;
-    cout << "9. Volver al menú anterior" << endl;
-    cout << "Seleccione una opción: ";
-    cin >> opcion;
-    switch (opcion) {
-        case 1:
-            cout << "Nuevo código de la vía: ";
-            int nuevoCodigoVia;
-            cin >> nuevoCodigoVia;
-            lugar.setCodi_V(nuevoCodigoVia);
-            break;
-        case 2:
-            cout << "Nuevo código del distrito: ";
-            int nuevoCodigoDistrito;
-            cin >> nuevoCodigoDistrito;
-            lugar.setCodi_D(nuevoCodigoDistrito);
-            break;
-        case 3:
-            cout << "Nuevo código del barrio: ";
-            int nuevoCodigoBarrio;
-            cin >> nuevoCodigoBarrio;
-            lugar.setCodi_B(nuevoCodigoBarrio);
-            break;
-        case 4:
-            cout << "Nuevo número postal: ";
-            int nuevoNumeroPostal;
-            cin >> nuevoNumeroPostal;
-            lugar.setNum_P(nuevoNumeroPostal);
-            break;
-        case 5:
-            cout << "Nuevo nombre de la vía: ";
-            string nuevoNombreVia;
-            cin >> nuevoNombreVia;
-            lugar.setNom_V(nuevoNombreVia);
-            break;
-        case 6:
-            cout << "Nuevo tipo de vía: ";
-            string nuevoTipoVia;
-            cin >> nuevoTipoVia;
-            lugar.setTipus_V(nuevoTipoVia);
-            break;
-        case 7:
-            cout << "Nueva longitud: ";
-            string nuevaLongitud;
-            cin >> nuevaLongitud;
-            lugar.setLong(nuevaLongitud);
-            break;
-        case 8:
-            cout << "Nueva latitud: ";
-            string nuevaLatitud;
-            cin >> nuevaLatitud;
-            lugar.setLat(nuevaLatitud);
-            break;
-        case 9:
-            break;
-        default:
-            cout << "Opción no válida. Inténtelo de nuevo." << endl;
-            break;
-    }
+
+int main() {
+    ifstream Data("DATA.txt");
+    Parques_Barna PB(Data);
+    menuPrincipal(PB);
+    return 0;
 }
 
     
