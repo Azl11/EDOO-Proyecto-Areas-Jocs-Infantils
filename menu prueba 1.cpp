@@ -38,19 +38,23 @@ int main()
                 cout<<" ";cin>> x;
                 switch(x)
                 {
-                case 1:
-
+                case 1:             
+    P.buscarPorIDLugar(); 
                     break;
                 case 2:
+                     P.BuscarPorBarrio();
 
                     break;
                 case 3:
+                    P.BuscarPorDistrito();
 
                     break;
                 case 4:
-
+                    P.BuscarPorCP();
+                
                     break;
                 case 5:
+                    P.BuscarPorEdad();
 
                     break;
                 case 6:
