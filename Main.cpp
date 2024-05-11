@@ -271,9 +271,6 @@ private:
 
     Lugar LUG;
     VOP Obj;
-    //vector<VStr> Vs;
-    //VOP::iterator itVOP = Obj.begin();
-
 
                 ///METODES PRIVATS
 
@@ -325,21 +322,6 @@ public:
      VOP GetVOP()const{return Obj;}
 
      void ERASE( vector<ObjetoParque>::iterator & It){Obj.erase(It);}
-
-    int Converter(char S) ///Converteix Chars Numerics a Ints
-    {
-        int N;
-        vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
-        for(int x = 0; x<=Lista.size();x++)
-        {
-            if(S ==  Lista[x])
-            {
-                N = x;
-            }
-
-        }
-        return N;
-    }
 
     void pushObj(ObjetoParque & ob){Obj.push_back(ob);}
 
@@ -484,21 +466,6 @@ class Parques_Barna
 ///---------------------------------------------------------> METODES
 
     Parque getParque(int q)const {return VPS[q];}
-
-     int Converter(char S) ///Converteix Chars Numerics a Ints
-    {
-        int N;
-        vector<char> Lista{'0','1','2','3','4','5','6','7','8','9'};
-        for(int x = 0; x<=Lista.size();x++)
-        {
-            if(S ==  Lista[x])
-            {
-                N = x;
-            }
-
-        }
-        return N;
-    }
 
     void Sorting()
     {
@@ -784,7 +751,7 @@ system("Color E9");system("cls");
 
         }
 
-        }
+    }
 
         cout<<" hay un total de "<<aux<<" parques!!!!"<<endl;
     }
@@ -809,7 +776,7 @@ system("Color E9");system("cls");
 
         }
 
-        }
+    }
 }
 
 void BuscarPorEdad() {
