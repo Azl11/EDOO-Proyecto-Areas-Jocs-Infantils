@@ -272,28 +272,6 @@ private:
     Lugar LUG;
     VOP Obj;
 
-                ///METODES PRIVATS
-
-     void VectorizingLongLat(string Str, vector<VStr> & Vs) ///Vectoritza els String de Longitud o Latitud
-    {
-        VStr V;
-        string Num = "";
-        for(int x = 0; Str.size()>x; x++)
-        {
-            if(Str[x] == '.')
-            {
-            V.push_back(Num);
-            Num = "";
-            }
-            if(Str[x] != '.')
-            {
-                Num = Num+Str[x];
-            }
-        }
-        V.push_back(Num);
-        Vs.push_back(V);
-    }
-
 public:
 
 ///-----------------------------------------> CONSTRUCTORS
