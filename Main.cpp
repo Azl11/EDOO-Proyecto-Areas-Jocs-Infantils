@@ -3,10 +3,428 @@
 #include<fstream>
 #include<vector>
 #include<algorithm>
+#include<time.h>
 
 using namespace std;
 
-typedef vector<string> VStr;
+///-----------------------------------------------> CLASSE DATA I HORA
+
+class Hora{
+
+    int h, m, s; //Hora, minuts i segons
+
+public:
+
+    //Constructor per defecte amb l'hora actual, que dóna el sistema
+    Hora(){
+        time_t t;
+        time( &t );
+        struct tm* info = localtime( &t );
+        h = info -> tm_hour;
+        m = info -> tm_min;
+        s = info -> tm_sec;
+    }
+
+    //Constructor amb tres paràmetres enters
+    Hora(int h, int m, int s){
+        this->h=h;
+        this->m=m;
+        this->s=s;
+    }
+
+    //Constructor amb un paràmetre enter quantitat de segons, ha de ser <= 24x3600=84600
+    //Se suposa que segons <= 24x3600=84600 segons d'un dia
+    Hora(int secs){
+        s = secs%60;
+        secs = secs/60;
+        m = secs%60;
+        h = secs/60;
+    }
+    //Constructor amb un paràmetre string en format hh:mm:ss o hh-mm-ss
+    Hora(string sh){
+        string c1 = sh.substr (0,2);//el string dels caràcters hh
+        h=stoi(c1); //stoi és la funció que converteix el string en enter
+        string c2 = sh.substr (3,2);//el string dels caràcters mm
+        m=stoi(c2);
+        string c3 = sh.substr (6); //el substring de la 6à posició fins al final
+        s=stoi(c3);
+    }
+
+    //Mètodes consultors
+    int getHora() const
+    {
+        return h;
+    }
+    int getMinuts() const
+    {
+        return m;
+    }
+    int getSegons() const
+    {
+        return s;
+    }
+
+    //Mètodes modificadors. Se suposa que h, m i s són vàlids
+    void setHora (int hh){
+        h=hh;
+    }
+    void setMinuts (int mm){
+        m=mm;
+    }
+    void setSegons (int ss){
+        s=ss;
+    }
+
+    //Incrementar l'hora amb una quantitat de segons
+    void incrementaHora (int ss){
+        int segs = s + ss; //sumem els segons totals resultants
+        if (segs > 59) {
+            int hh=segs/3600;
+            h+=hh;
+            int mm =(segs - hh*3600)/60;
+            m+=mm;
+            if (m > 59) //m pot tenir vàries hores...
+            {
+                h += m/60;;
+                m = m%60;
+            }
+            s=segs- hh*3600-mm*60;
+        }
+        else
+        {
+            s += ss;
+        }
+    }
+    //Transforma una hora en quantitat total de segons
+    int aSegons()
+    {
+            return h*3600 + m*60 + s;
+    }
+    //Transforma una hora en quantitat total de minuts (double)
+    double aMinuts()
+    {
+            return double (h*60 + m + s/60.0);
+    }
+
+    //L'operador incrementa l'hora amb una quantitat de segons ss
+    friend Hora& operator + (Hora& H, int ss)
+    {
+        int segs= H.s + ss;
+        if (segs > 59) {
+            int hh=segs/3600;
+            H.h+=hh;
+            int mm =(segs - hh*3600)/60;
+            H.m+=mm;
+            if (H.m > 59)
+            {
+                H.h++;
+                H.m-=60;
+            }
+            H.s=segs- hh*3600-mm*60;
+        }
+        return H;
+    }
+
+    //L'operador - resta dues hores, dóna una hora com a resultats
+    friend Hora operator - (const Hora H1, const Hora H2)
+    {
+        int s1 = H1.getHora()*3600 + H1.getMinuts()*60 + H1.getSegons();
+         int s2 = H2.getHora()*3600 + H2.getMinuts()*60 + H2.getSegons();
+
+        if (H1 < H2)
+        {
+            int sdif = s2 - s1;
+            Hora Hdif(sdif);
+            return Hdif;
+        }
+        else
+        {
+            int sdif = s1 - s2;
+            Hora Hdif(sdif);
+            return Hdif;
+        }
+    }
+
+    //Operador < per comparar dues hores
+    friend bool operator < (const Hora& h1, const Hora& h2)
+    {
+        if ( h1.h < h2.h)
+        {
+            return true;
+        }
+        else if (h1.h == h2.h and h1.m < h2.m)
+        {
+            return true;
+        }
+        else if ( h1.h == h2.h and h1.m == h2.m and h1.s < h2.s)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //Comparar dues hores ==
+    friend bool operator == (const Hora& h1, const Hora& h2)
+    {
+        return ( h1.h == h2.h and h1.m == h2.m and h1.s == h2.s);
+    }
+
+    //Escriure una hora per canal de sortida hh:mm:ss format 24h
+    friend ostream& operator << (ostream& os, Hora hora)
+    {
+        os << "Hora: ";
+        if (hora.h < 10){
+            os << "0";
+        }
+        os << hora.h <<":";
+
+        if (hora.m < 10){
+            os << "0";
+        }
+        os<< hora.m <<":";
+
+        if (hora.s < 10){
+            os << "0";
+        }
+        os<< hora.s << endl;
+
+        return os;
+    }
+
+};
+
+class Data{
+
+    int dia, mes, any;
+
+    //Comprovar si la data pertany a un any bissest. Mètode privat. S'utilitza només en la classe
+    //Hi ha un altre mètode public amb el mateix nom però sense el paràmetre any.
+    bool de_traspas(int any) const
+    {
+        return ((any % 4 == 0 && any % 100 != 0) or any%400 == 0);
+    }
+
+    //Consultar dies d'un mes i any donats. Mètode privat. S'utilitza només en la classe
+    int dias_mes(int mes, int any) const
+    {
+        int dies = 31;
+        if (mes == 4 or mes == 6 or mes == 9 or mes == 11) {
+            dies = 30;
+        }
+        else if (mes == 2) {
+            if (de_traspas(any) == true) {
+                dies = 29;
+            }
+            else {
+                dies = 28;
+            }
+        }
+        return dies;
+    }
+
+public:
+
+    //Constructor per defecte amb la data actual, que dóna el sistema, llibreria time.h
+    Data(){
+        time_t t; //time_t és una tupla de temps (dia, mes any, hora, mins, segs) definit en time.h
+        time( &t );
+        struct tm* info = localtime( &t );
+        dia = info -> tm_mday;
+        mes = info -> tm_mon + 1;
+        any = 1900+ info -> tm_year; // l'any es comença a comptar a partir del 1900
+    }
+
+    //Constructor amb tres paràmetres enters
+    Data(int d, int m, int a){
+        dia=d;
+        mes=m;
+        any=a;
+    }
+
+    //Constructor amb un paràmetre enter ddmmaaaa
+    Data(int ddmmaaaa){
+        dia=ddmmaaaa/1000000;
+        mes=(ddmmaaaa/10000)%100;
+        any=ddmmaaaa%10000;
+    }
+
+    //Constructor amb un paràmetre string en format dd:mm:aaaa o dd-mm-aaaa
+    //stoi és una funció per converir un string (p.ex "12") en un enter (p.ex. 12)
+    Data(string sd){
+        string c1 = sd.substr (0,2);//el string dels caràcters dd
+        dia=stoi(c1);
+        string c2 = sd.substr (3,2);//el string dels caràcters mm
+        mes=stoi(c2);
+        string c3 = sd.substr (6); //el substring de la 6à posició fins al final
+        any=stoi(c3);
+    }
+
+    //Métodes consultors
+    int getDia() const
+    {
+        return dia;
+    }
+    int getMes() const
+    {
+        return mes;
+    }
+    int getAny() const
+    {
+        return any;
+    }
+
+    //Comprovar si la data que s'està construint es d'un any de traspàs
+    bool de_traspas() const
+    {
+        return ((any % 4 == 0 && any % 100 != 0) or any%400 == 0);
+    }
+
+    //Métodes modificadors. Se suposa que d, m i a són vàlids
+    void setDia (int d){
+        dia=d;
+    }
+    void setMes (int m){
+        mes=m;
+    }
+    void setAny (int a){
+        any=a;
+    }
+
+    //Nombre de dies d'un any
+    int diesAny(int any) const
+    {
+        int dies = 365;
+        if (de_traspas(any))
+        {
+            dies = 366;
+        }
+        return dies;
+    }
+
+    //Nombre de dies entre la data que s'està construint i una data donada D. Suposem que la data que s'està construint és menor o igual que la data D
+    int diesFinsLaData(const Data& D) const
+    {
+        // Nombre total de dies fins la data que s'està construint
+        int dies1 = any * 365 + dia;
+
+        // Afegim els dies corresponents als mesos de la data que s'està construint
+        for (int m =0;  m < mes-1; m++)
+        {
+           dies1 += dias_mes(mes, any);
+        }
+
+     // Fem el mateix càlcul per la data donada D
+
+        // Nombre total de dies fins la data D
+        int dies2 = D.any * 365 + D.dia;
+
+        // Afegim els dies corresponents als mesos de la data D
+        for (int m =0;  m < D.mes-1; m++)
+        {
+           dies2 += dias_mes(D.mes, D.any);
+        }
+
+        // el nombre de dies entre les dues dates és la diferència
+        return (dies2 - dies1);
+    }
+
+    //Incrementar la data amb una quantitat de dies
+    void incrementaData (int dd){
+        dia=dia+dd;
+        if (dia > dias_mes(mes, any)) {
+            dia = dia-dias_mes(mes,any);
+            mes++;
+            if (mes > 12) {
+                mes = 1;
+                any++;
+            }
+        }
+    }
+
+    //Comptem els anys de traspàs fins una data
+    int anysDeTraspas(const Data& D) const
+    {
+        int anys = D.any;
+
+        //Comprovem si l'any actual s'ha de comprovar igualment
+        if (D.mes <= 2)
+            anys--;
+
+        return D.any / 4
+               - D.any / 100
+               + D.any / 400;
+    }
+    //Resta dues dates
+    int operator - (const Data& D)
+    {
+        const int diesMes[12]
+            = { 31, 28, 31, 30, 31, 30,
+               31, 31, 30, 31, 30, 31 };
+
+        //Comptem el total de dies fins data que s'est� construint
+        int dies1 = any * 365 + dia;
+
+        //Afegim els dies dels mesos
+        for (int m = 0; m < mes - 1; m++)
+            dies1 += diesMes[m];
+
+        //Tenint en compte els anys de traspas...afegim un dia per cada any
+        Data DD(dia,mes,any);
+        dies1 += anysDeTraspas(DD);
+
+        //Fem el mateix amb D
+
+        int dies2 = D.any * 365 + D.dia;
+        for (int m = 0; m < D.mes - 1; m++)
+            dies2 += diesMes[m];
+        dies2 += anysDeTraspas(D);
+
+        //retornen la diferència de dies dels dos anys
+        return abs(dies2 - dies1);
+    }
+
+    //Comparar dues dates <
+    friend bool operator < (const Data& d1, const Data& d2)
+    {
+        return (d1.any*10000+d1.mes*100+d1.dia < d2.any*10000+d2.mes*100+d2.dia);
+    }
+
+    //Comparar dues dates <=
+    friend bool operator <= (const Data& d1, const Data& d2)
+    {
+        return (d1.any*10000+d1.mes*100+d1.dia <= d2.any*10000+d2.mes*100+d2.dia);
+    }
+
+    //Comparar dues dates ==
+    friend bool operator == (const Data& d1, const Data& d2)
+    {
+        return (d1.any*10000+d1.mes*100+d1.dia == d2.any*10000+d2.mes*100+d2.dia);
+    }
+    //Escriure una data per canal de sortida dd/mm/aaaa
+   friend ostream& operator << (ostream& os, const Data d)
+    {
+        os << "Data: ";
+        if (d.dia < 10){
+            os << "0";
+        }
+        os << d.dia <<"/";
+
+        if (d.mes < 10){
+            os << "0";
+        }
+        os<< d.mes << "/" << d.any<<endl;
+
+        return os;
+    }
+    //Llegir una data per canal d'entrada dd mm aaaa
+   friend istream& operator >> (istream& is, Data& d)
+    {
+        is >> d.dia >> d.mes >> d.any;
+
+        return is;
+    }
+
+};
 
 ///-----------------------------------> CLASSE
 
@@ -124,6 +542,8 @@ class Lugar
   string Tipus_V; //Tipus Via
   int Num_P,SPVC; //Numero Postal
   string Long , Lat ,X9,Y9,SPVN; //Longitud  Latitud
+  Data DAfegit,DEditat;
+  Hora HAfegit,HEditat;
 
 
   public:
@@ -132,7 +552,7 @@ class Lugar
 
 Lugar(){}
 
-Lugar(int Codi_V, int Codi_D, int Codi_B, int Num_P, string Long, string Lat,string Nom_V, string Nom_D, string Nom_B, string Tipus_V , int AJ_Id){
+Lugar(int Codi_V, int Codi_D, int Codi_B, int Num_P, string Long, string Lat,string Nom_V, string Nom_D, string Nom_B, string Tipus_V , int AJ_Id,Data DAfegit,Data DEditat, Hora HEditat, Hora HAfegit){
     this -> AJ_Id = AJ_Id;
     this -> Codi_V=Codi_V;
     this -> Codi_D=Codi_D;
@@ -144,6 +564,10 @@ Lugar(int Codi_V, int Codi_D, int Codi_B, int Num_P, string Long, string Lat,str
     this -> Num_P=Num_P;
     this -> Long=Long;
     this -> Lat=Lat;
+    this -> DAfegit =DAfegit;
+    this -> HAfegit = HAfegit;
+    this -> DEditat = DEditat;
+    this -> HEditat = HEditat;
 }
 
 Lugar(const Lugar & Loc){
@@ -158,6 +582,10 @@ Lugar(const Lugar & Loc){
     Num_P=Loc.Num_P;
     Long=Loc.Long;
     Lat=Loc.Lat;
+    DAfegit = Loc.DAfegit;
+    HAfegit = Loc.HAfegit;
+    DEditat = Loc.DEditat;
+    HEditat = Loc.HEditat;
 }
 
 ///-----------------------------------------------> METODES
@@ -179,6 +607,10 @@ string getLat()const  {return Lat;}
 string getX9()const {return X9;}
 string getY9 ()const {return Y9;}
 string getSPVN () const {return SPVN;}
+Data getDAdd () const {return DAfegit;}
+Data getDEdit () const {return DEditat;}
+Hora getHAdd () const {return HAfegit;}
+Hora getHEdit () const {return HEditat;}
 
                 ///METODES SET
 
@@ -197,6 +629,10 @@ void setX9(string X9){this -> X9 = X9;}
 void setY9(string Y9){this -> Y9 = Y9;}
 void setSPVC(int SPVC){this -> SPVC = SPVC;}
 void setSPVN(string SPVN){this -> SPVN = SPVN;}
+void setDAdd (Data DAfegit){this -> DAfegit = DAfegit;}
+void setDEdit (Data DEditat){this -> DEditat = DEditat;}
+void setHAdd (Hora HAfegit){this -> HAfegit = HAfegit;}
+void setHEdit (Hora HEditat){this -> HEditat = HEditat;}
 
                 ///OPERADOR COUT
 
@@ -216,6 +652,8 @@ friend ostream & operator<<(ostream & os, const Lugar & Loc){
     os<<" numero postal: "<<Loc.Num_P<<endl;
     os<<" Latitud: "<<Loc.Lat<<endl;
     os<<" Longitud: "<<Loc.Long<<endl;
+    os<<" Data Afegit: "<<Loc.DAfegit<<" "<<Loc.HAfegit<<endl;
+    os<<" Data Editat: "<<Loc.DEditat<<" "<<Loc.HEditat<<endl;
 
   return os;
 }
@@ -255,6 +693,10 @@ Lugar & operator = (const Lugar & Lug)
             Num_P = Lug.Num_P;
             Long = Lug.Long;
             Lat = Lug.Lat;
+            DAfegit = Lug.DAfegit;
+            HAfegit = Lug.HAfegit;
+            DEditat = Lug.DEditat;
+            HEditat = Lug.HEditat;
         }
         return *this;
     }
@@ -521,6 +963,10 @@ class Parques_Barna
                                 cin>>O;
                                 O.setAJ_Id(Editor);
                                 itVP->SetVOP(numerin,O);
+                                Data D;
+                                Hora H;
+                                VPS[Search].getLUG().setDEdit(D);
+                                VPS[Search].getLUG().setHEdit(H);
                             }
                         }
 
@@ -578,6 +1024,8 @@ class Parques_Barna
                 P.SetLUG(L);
                 Editor = P.getLUG().getAJ_Id();
                 AddO(numerin,Editor,O,P);
+                Data D;
+                Hora H;
                 if(P.GetVOP().size()== 0){cout<<endl<<endl<<" !! Al no tenir cap objecte no s'ha guardat correctament !!"<<endl<<endl;}
                 VPS.insert(itVP,P);
             }
