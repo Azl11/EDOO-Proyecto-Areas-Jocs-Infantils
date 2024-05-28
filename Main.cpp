@@ -947,44 +947,45 @@ class Parques_Barna
             Search = Comparator(0,VPS.size(),Search);
             if(Search != -1)
             {
-                    cout<<endl<<" - Editar la localitzacio (1)"<<endl<<endl<<" - Editar els objectes (2)"<<endl<<endl<<" - Surt de l'editor (3)"<<endl<<endl<<" ---> ";cin>>asc;;
+                cout<<endl<<" - Editar la localitzacio (1)"<<endl<<endl<<" - Editar els objectes (2)"<<endl<<endl<<" - Surt de l'editor (3)"<<endl<<endl<<" ---> ";cin>>asc;;
 
-                    if(asc == 2)
-                        {
-                            system("cls");
-                            cout<<endl<<" Pots editar "<<VPS[Search].ObjSize()<<", inserta el seguent objecte que vulguis editar, o surt de l'editor d'objectes insertan cualsevol tecla: "<<endl<<endl<<" ---> ";cin>>numerin;
-                            if(numerin > VPS[Search].ObjSize() || numerin <= 0){system("Color E0");return 0;}
-                            else
-                            {
-                                numerin--;
-                                cout<<VPS[Search].getVObj(numerin)<<endl;
-                                cout<<" As escollit aquest objecte. "<<endl<<endl;
-                                if (adv == false){advance(itVP,Search);adv = true;}
-                                cin>>O;
-                                O.setAJ_Id(Editor);
-                                itVP->SetVOP(numerin,O);
-                                Data D;
-                                Hora H;
-                                VPS[Search].getLUG().setDEdit(D);
-                                VPS[Search].getLUG().setHEdit(H);
-                            }
-                        }
-
-                    if(asc == 1)
+                if(asc == 2)
+                {
+                    system("cls");
+                    cout<<endl<<" Pots editar "<<VPS[Search].ObjSize()<<", inserta el seguent objecte que vulguis editar, o surt de l'editor d'objectes insertan cualsevol tecla: "<<endl<<endl<<" ---> ";cin>>numerin;
+                    if(numerin > VPS[Search].ObjSize() || numerin <= 0){system("Color E0");return 0;}
+                    else
                     {
-                        system("cls");
-                        advance(itVP,Search);
-                        cout<<endl;cin>>L;
-                        L.setAJ_Id(Editor);
-                        itVP->SetLUG(L);
-                        cout<<endl<<" - Editar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2)"<<endl<<endl<<" ---> "; cin>>asc;
-                        if(asc == 1){Edit();}
-                        else {system("Color E0");system("cls");return 0;}
+                        numerin--;
+                        cout<<VPS[Search].getVObj(numerin)<<endl;
+                        cout<<" As escollit aquest objecte. "<<endl<<endl;
+                        if (adv == false){advance(itVP,Search);adv = true;}
+                        cin>>O;
+                        O.setAJ_Id(Editor);
+                        itVP->SetVOP(numerin,O);
+                        Data D;
+                        Hora H;
+                        VPS[Search].getLUG().setDEdit(D);
+                        VPS[Search].getLUG().setHEdit(H);
                     }
+                }
 
-                    else if(asc == 3){system("Color E0");system("cls");return 0;}
+                if(asc == 1)
+                {
+                    system("cls");
+                    advance(itVP,Search);
+                    cout<<endl;cin>>L;
+                    L.setAJ_Id(Editor);
+                    itVP->SetLUG(L);
+                    cout<<endl<<" - Editar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2)"<<endl<<endl<<" ---> "; cin>>asc;
+                    if(asc == 1){Edit();}
+                    else {system("Color E0");system("cls");return 0;}
+                }
 
-                    else {system("cls");cout<<endl<<" Inserta un valor correcte: "<<endl<<endl;}
+                else if(asc == 3){system("Color E0");system("cls");return 0;}
+
+                else {system("cls");cout<<endl<<" Inserta un valor correcte: "<<endl<<endl;return 0;}
+                return 0;
             }
         }
     }
@@ -1028,6 +1029,7 @@ class Parques_Barna
                 Hora H;
                 if(P.GetVOP().size()== 0){cout<<endl<<endl<<" !! Al no tenir cap objecte no s'ha guardat correctament !!"<<endl<<endl;}
                 VPS.insert(itVP,P);
+                return 0;
             }
             Add();
         }
@@ -1046,8 +1048,9 @@ class Parques_Barna
                     advance(itVP,numerin);
                     *itVP = P;
                     correcte = false;
+                    return 0;
                 }
-                else{system("cls");cout<<endl<<" El valor insertat no existeix, torna a insertar un valor existent: "<<endl;}
+                else{system("cls");cout<<endl<<" El valor insertat no existeix, torna a insertar un valor existent: "<<endl;return 0;}
             }
             Add();
         }
@@ -1096,6 +1099,7 @@ class Parques_Barna
                             VPS[Search].ERASE(itVOP);
                             cout<<" - Eliminar un altre objecte (1)"<<endl<<endl<<" - Sortir de l'editor (2) "<<endl<<endl;cin>>asc;
                             if(asc == 2){system("cls");system("Color E0");return 0;}
+                            return 0;
                         }
                     }
                 }
@@ -1104,6 +1108,7 @@ class Parques_Barna
             else
             {
                 cout<<endl<<" El valor insertat no existeix, torna a insertar un valor existent: "<<endl;
+                return 0;
             }
     }
 
